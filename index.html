@@ -1,0 +1,2945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Asia Hydrocarbon Extraction Dashboard — country licensing, live fields, Oil Mine Ultra simulator and W50 dimensions registry.">
+<title>Asia Hydrocarbon Extraction | Oil Mine Ultra W50 Registry By Theory (Moshiur Rahman Sobuj) Shark Asia Sn4key</title>
+<style>
+    :root {
+        --gold: #ffcc00;
+        --amber: #d4a017;
+        --dark-bg: #0a0a0a;
+        --panel: #141414;
+        --panel-2: #1a1a1a;
+        --line: #2a2a2a;
+        --text: #ececec;
+        --muted: #9a9a9a;
+        --dirt: #8b4513;
+        --good: #4dff88;
+        --warn: #ffb347;
+        --bad: #ff5c5c;
+        --blue: #4da6ff;
+        --teal: #3dd6c4;
+        --violet: #b78cff;
+        --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+        margin: 0;
+        background: var(--dark-bg);
+        color: var(--text);
+        font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+        line-height: 1.6;
+        overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 { line-height: 1.2; }
+    a { color: var(--gold); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .wrap { max-width: 1280px; margin: 0 auto; padding: 0 22px; }
+
+    /* ============ PRESENTATION ============ */
+    body.present { --dark-bg: #050505; }
+    body.present .hero { min-height: 92vh; }
+    body.present section.block { padding: 110px 0; }
+    body.present .toc,
+    body.present .readiness,
+    body.present .phase-tabs,
+    body.present .country-list,
+    body.present footer { display: none !important; }
+    body.present .phase-layout,
+    body.present .license-layout,
+    body.present .mine-layout { grid-template-columns: 1fr; }
+    body.present .phase-panel,
+    body.present .license-panel { min-height: 480px; font-size: 1.08rem; }
+    body.present .pp-desc { font-size: 1.05rem; }
+
+    /* ============ HERO ============ */
+    .hero {
+        position: relative;
+        min-height: 86vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        overflow: hidden;
+        border-bottom: 2px solid var(--teal);
+        background: radial-gradient(ellipse at 50% 120%, #04262a 0%, #0a0a0a 65%);
+    }
+    #heroCanvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+    .hero-inner { position: relative; z-index: 2; padding: 90px 22px 70px; max-width: 940px; }
+    .eyebrow {
+        display: inline-block;
+        font-family: monospace;
+        font-size: 12px;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--teal);
+        border: 1px solid #133a3a;
+        background: rgba(61, 214, 196, .06);
+        padding: 7px 16px;
+        border-radius: 30px;
+        margin-bottom: 26px;
+    }
+    .hero h1 {
+        font-size: clamp(2rem, 6vw, 3.6rem);
+        margin: 0 0 18px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--gold);
+        text-shadow: 0 0 46px rgba(255, 204, 0, .35);
+    }
+    .hero h1 em {
+        display: block;
+        font-style: normal;
+        color: var(--teal);
+        font-size: .55em;
+        letter-spacing: 8px;
+        margin-top: 10px;
+        text-shadow: 0 0 30px rgba(61, 214, 196, .4);
+    }
+    .hero p.lead {
+        max-width: 740px;
+        margin: 0 auto;
+        color: #b9b9b9;
+        font-size: clamp(1rem, 2vw, 1.1rem);
+    }
+    .hero-stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: center;
+        margin-top: 40px;
+    }
+    .hero-stat {
+        background: rgba(20, 20, 20, .82);
+        border: 1px solid #2e2e2e;
+        border-radius: 12px;
+        padding: 14px 22px;
+        min-width: 140px;
+        backdrop-filter: blur(4px);
+    }
+    .hero-stat b {
+        display: block;
+        color: var(--teal);
+        font-size: 1.5rem;
+        font-family: monospace;
+    }
+    .hero-stat span {
+        font-size: 11px;
+        color: var(--muted);
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+    }
+    .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+        margin-top: 34px;
+    }
+    .btn {
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        padding: 13px 24px;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        transition: transform .15s, box-shadow .2s, opacity .2s;
+    }
+    .btn:active { transform: scale(.97); }
+    .btn-gold {
+        background: linear-gradient(#ffd633, #d4a017);
+        color: #1a1200;
+        box-shadow: 0 0 20px rgba(255, 204, 0, .3);
+    }
+    .btn-gold:hover { box-shadow: 0 0 30px rgba(255, 204, 0, .55); }
+    .btn-teal {
+        background: linear-gradient(#3dd6c4, #1a9a8a);
+        color: #002a26;
+        box-shadow: 0 0 20px rgba(61, 214, 196, .3);
+    }
+    .btn-teal:hover { box-shadow: 0 0 30px rgba(61, 214, 196, .55); }
+    .btn-ghost {
+        background: rgba(20, 20, 20, .8);
+        color: var(--teal);
+        border: 1px solid #2a3a3a;
+        backdrop-filter: blur(4px);
+    }
+    .btn-ghost:hover { background: #1e2a2a; }
+    .btn-sm { padding: 8px 16px; font-size: 12.5px; }
+    button:disabled { opacity: .4; cursor: not-allowed; }
+
+    /* ============ NAV ============ */
+    .toc {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        background: rgba(10, 10, 10, .94);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--line);
+    }
+    .toc-inner {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 10px 22px;
+        overflow-x: auto;
+        max-width: 1280px;
+        margin-inline: auto;
+        scrollbar-width: thin;
+    }
+    .toc a {
+        display: block;
+        white-space: nowrap;
+        font-size: 12.5px;
+        padding: 8px 13px;
+        border-radius: 8px;
+        color: #b5b5b5;
+        border: 1px solid transparent;
+        transition: .2s;
+    }
+    .toc a:hover {
+        color: var(--teal);
+        background: #152020;
+        border-color: #24403c;
+        text-decoration: none;
+    }
+    .toc .present-btn {
+        margin-left: auto;
+        white-space: nowrap;
+        background: #132424;
+        color: var(--teal);
+        border: 1px solid #24403c;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-family: inherit;
+        font-size: 12.5px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+    .toc .present-btn:hover { background: #1b3030; }
+
+    /* ============ SECTIONS ============ */
+    section.block { padding: 78px 0; border-bottom: 1px solid #141414; }
+    .sec-head { margin-bottom: 38px; }
+    .sec-head .kicker {
+        font-family: monospace;
+        font-size: 11.5px;
+        letter-spacing: 3px;
+        color: var(--teal);
+        text-transform: uppercase;
+    }
+    .sec-head h2 {
+        font-size: clamp(1.5rem, 3.4vw, 2.15rem);
+        margin: 8px 0 10px;
+        color: var(--gold);
+    }
+    .sec-head p { margin: 0; color: var(--muted); max-width: 760px; }
+
+    /* ============ READINESS ============ */
+    .readiness {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 20px 24px;
+        margin-bottom: 30px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 18px;
+    }
+    .readiness-label {
+        font-family: monospace;
+        font-size: 12px;
+        letter-spacing: 2px;
+        color: var(--muted);
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+    .readiness-track {
+        flex: 1;
+        min-width: 180px;
+        height: 10px;
+        background: #1e1e1e;
+        border-radius: 6px;
+        overflow: hidden;
+        border: 1px solid #2c2c2c;
+    }
+    .readiness-fill {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, #0a6b5c, var(--teal));
+        box-shadow: 0 0 16px rgba(61, 214, 196, .5);
+        transition: width .45s ease;
+    }
+    .readiness-count {
+        font-family: monospace;
+        color: var(--teal);
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    /* ============ PHASE TABS ============ */
+    .phase-layout {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        gap: 26px;
+        align-items: start;
+    }
+    .phase-tabs {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        max-height: 660px;
+        overflow-y: auto;
+        padding-right: 6px;
+    }
+    .phase-tabs::-webkit-scrollbar { width: 6px; }
+    .phase-tabs::-webkit-scrollbar-thumb { background: #2e2e2e; border-radius: 4px; }
+    .phase-tab {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+        text-align: left;
+        font-family: inherit;
+        font-size: 13.5px;
+        color: #b8b8b8;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-left: 3px solid #2e2e2e;
+        border-radius: 10px;
+        padding: 12px 14px;
+        cursor: pointer;
+        transition: .2s;
+    }
+    .phase-tab:hover { background: #1c1c1c; color: var(--text); }
+    .phase-tab[aria-selected="true"] {
+        background: #0f1c1a;
+        border-color: #1a3a34;
+        border-left-color: var(--teal);
+        color: var(--teal);
+    }
+    .phase-tab .num {
+        font-family: monospace;
+        font-size: 11px;
+        color: #6a6a6a;
+        min-width: 20px;
+    }
+    .phase-tab[aria-selected="true"] .num { color: var(--teal); }
+    .phase-tab .ic { font-size: 15px; }
+    .phase-tab .done {
+        margin-left: auto;
+        color: var(--good);
+        font-size: 12px;
+        opacity: 0;
+        transition: opacity .25s;
+    }
+    .phase-tab.visited .done { opacity: 1; }
+    .phase-panel {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 30px 32px;
+        min-height: 440px;
+    }
+    .pp-top { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 8px; }
+    .pp-badge {
+        font-family: monospace;
+        font-size: 22px;
+        color: var(--teal);
+        background: #0f1c1a;
+        border: 1px solid #1a3a34;
+        border-radius: 12px;
+        width: 54px;
+        height: 54px;
+        display: grid;
+        place-items: center;
+        flex-shrink: 0;
+    }
+    .pp-top h3 { margin: 0 0 4px; color: var(--gold); font-size: 1.35rem; }
+    .pp-tag {
+        display: inline-block;
+        font-family: monospace;
+        font-size: 10.5px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--teal);
+        background: #0f1c1a;
+        border-radius: 20px;
+        padding: 3px 11px;
+    }
+    .pp-desc { color: #c2c2c2; font-size: 14.5px; margin: 18px 0 22px; }
+    .pp-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .pp-cols h4 {
+        margin: 0 0 12px;
+        font-size: 12px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--muted);
+    }
+    .pp-cols ul { list-style: none; margin: 0; padding: 0; }
+    .pp-cols li {
+        position: relative;
+        padding-left: 20px;
+        margin-bottom: 10px;
+        font-size: 13.5px;
+        color: #c4c4c4;
+    }
+    .pp-cols li::before {
+        content: "→";
+        position: absolute;
+        left: 0;
+        color: var(--teal);
+    }
+    .pp-note {
+        margin-top: 24px;
+        padding: 14px 18px;
+        border-radius: 10px;
+        font-size: 13px;
+        background: #0d1c1a;
+        border-left: 3px solid var(--teal);
+        color: #b8d4d0;
+    }
+    .pp-note b { color: var(--teal); }
+    .pp-metric { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 12px; }
+    .metric-chip {
+        background: #101010;
+        border: 1px solid #2a2a2a;
+        border-radius: 10px;
+        padding: 10px 16px;
+        font-size: 12px;
+        color: var(--muted);
+    }
+    .metric-chip b {
+        display: block;
+        color: var(--teal);
+        font-family: monospace;
+        font-size: 1rem;
+        margin-top: 2px;
+    }
+
+    /* ============ COUNTRY ============ */
+    .license-layout {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        gap: 26px;
+        align-items: start;
+    }
+    .country-tools { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+    .search-box {
+        flex: 1;
+        min-width: 140px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        padding: 9px 13px;
+        color: var(--text);
+        font-family: inherit;
+        font-size: 13px;
+        outline: none;
+        transition: border-color .2s;
+    }
+    .search-box:focus { border-color: var(--teal); }
+    .search-box::placeholder { color: #666; }
+    .region-select {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        padding: 9px 12px;
+        color: var(--text);
+        font-family: inherit;
+        font-size: 12.5px;
+        outline: none;
+        cursor: pointer;
+    }
+    .region-select:focus { border-color: var(--teal); }
+    .country-list {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        max-height: 660px;
+        overflow-y: auto;
+        padding-right: 6px;
+    }
+    .country-list::-webkit-scrollbar { width: 6px; }
+    .country-list::-webkit-scrollbar-thumb { background: #2e2e2e; border-radius: 4px; }
+    .country-btn {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        width: 100%;
+        text-align: left;
+        font-family: inherit;
+        font-size: 13px;
+        color: #b8b8b8;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-left: 3px solid #2e2e2e;
+        border-radius: 10px;
+        padding: 10px 13px;
+        cursor: pointer;
+        transition: .2s;
+    }
+    .country-btn:hover { background: #1c1c1c; color: var(--text); }
+    .country-btn[aria-selected="true"] {
+        background: #0f1c1a;
+        border-color: #1a3a34;
+        border-left-color: var(--teal);
+        color: var(--teal);
+    }
+    .country-btn .flag { font-size: 17px; }
+    .country-btn .cname { flex: 1; line-height: 1.25; }
+    .country-btn .cname small {
+        display: block;
+        font-size: 10px;
+        color: #6a6a6a;
+        font-family: monospace;
+        letter-spacing: 1px;
+    }
+    .country-btn .crank {
+        font-family: monospace;
+        font-size: 10px;
+        color: #6a6a6a;
+        background: #101010;
+        border: 1px solid #262626;
+        border-radius: 20px;
+        padding: 2px 7px;
+        white-space: nowrap;
+    }
+    .country-btn[aria-selected="true"] .crank {
+        color: var(--teal);
+        border-color: #1a3a34;
+    }
+    .country-btn[aria-selected="true"] .cname small { color: #4a7a74; }
+    .license-panel {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 28px 30px;
+        min-height: 460px;
+    }
+    .lp-head { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 6px; }
+    .lp-flag { font-size: 38px; line-height: 1; flex-shrink: 0; }
+    .lp-head h3 { margin: 0 0 4px; color: var(--teal); font-size: 1.4rem; }
+    .lp-sub {
+        font-family: monospace;
+        font-size: 11px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--muted);
+    }
+    .lp-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 12px;
+        margin: 22px 0;
+    }
+    .lp-stat {
+        background: #101010;
+        border: 1px solid #242424;
+        border-radius: 10px;
+        padding: 12px 16px;
+    }
+    .lp-stat span {
+        display: block;
+        font-size: 10.5px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--muted);
+    }
+    .lp-stat b {
+        display: block;
+        color: var(--gold);
+        font-family: monospace;
+        font-size: 1.1rem;
+        margin-top: 3px;
+    }
+    .lp-facts { color: #b8b8b8; font-size: 14px; margin: 0 0 18px; line-height: 1.7; }
+    .lp-facts b { color: var(--teal); }
+    .lp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 8px; }
+    .lp-grid h4 {
+        margin: 0 0 10px;
+        font-size: 11.5px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--muted);
+    }
+    .lp-grid ul { list-style: none; margin: 0; padding: 0; }
+    .lp-grid li {
+        position: relative;
+        padding-left: 18px;
+        margin-bottom: 9px;
+        font-size: 13px;
+        color: #c0c0c0;
+    }
+    .lp-grid li::before {
+        content: "▸";
+        position: absolute;
+        left: 0;
+        color: var(--teal);
+    }
+    .lp-note {
+        margin-top: 22px;
+        padding: 13px 17px;
+        border-radius: 10px;
+        font-size: 12.5px;
+        background: #0d1c1a;
+        border-left: 3px solid var(--teal);
+        color: #a8c8c4;
+    }
+    .lp-note b { color: var(--teal); }
+    .lp-empty {
+        text-align: center;
+        color: #5a5a5a;
+        font-family: monospace;
+        font-size: 13px;
+        padding: 60px 20px;
+    }
+
+    /* ============ LIVE FIELDS ============ */
+    .live-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 18px;
+    }
+    .live-toolbar .grow { flex: 1; }
+    .filter-btn {
+        background: #1a1a1a;
+        color: #aaa;
+        border: 1px solid #2e2e2e;
+        border-radius: 20px;
+        padding: 7px 16px;
+        font-family: inherit;
+        font-size: 12px;
+        cursor: pointer;
+        transition: .2s;
+    }
+    .filter-btn:hover { background: #242424; }
+    .filter-btn.active {
+        background: #0f1c1a;
+        color: var(--teal);
+        border-color: #1a3a34;
+    }
+    .live-update {
+        font-family: monospace;
+        font-size: 11px;
+        color: var(--muted);
+        white-space: nowrap;
+    }
+    .live-update .dot {
+        display: inline-block;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--good);
+        margin-right: 6px;
+        animation: pulse 1.6s ease-in-out infinite;
+    }
+    @keyframes pulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: .4; transform: scale(.7); }
+    }
+    .table-wrap {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        overflow: hidden;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    thead th {
+        text-align: left;
+        padding: 13px 14px;
+        background: #101010;
+        color: var(--muted);
+        font-size: 10.5px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        font-weight: 600;
+        border-bottom: 1px solid #242424;
+        white-space: nowrap;
+    }
+    tbody td {
+        padding: 11px 14px;
+        border-bottom: 1px solid #1a1a1a;
+        color: #c4c4c4;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover { background: #171717; }
+    .field-name {
+        color: #eee;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        white-space: nowrap;
+    }
+    .field-name .fic { font-size: 15px; }
+    .badge {
+        display: inline-block;
+        font-family: monospace;
+        font-size: 10px;
+        padding: 3px 9px;
+        border-radius: 20px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+    .badge-online      { background: #0f2a1a; color: var(--good); border: 1px solid #1d4a2e; }
+    .badge-maintenance { background: #2a2010; color: var(--warn); border: 1px solid #4a3a1a; }
+    .badge-suspended   { background: #2a1010; color: var(--bad);  border: 1px solid #4a1a1a; }
+    .badge-drilling    { background: #0f1a2a; color: var(--blue); border: 1px solid #1a2e4a; }
+    .trend-up   { color: var(--good);  font-family: monospace; }
+    .trend-down { color: var(--bad);   font-family: monospace; }
+    .trend-flat { color: var(--muted); font-family: monospace; }
+    .mini-bar {
+        width: 64px;
+        height: 6px;
+        background: #1e1e1e;
+        border-radius: 4px;
+        overflow: hidden;
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .mini-bar span {
+        display: block;
+        height: 100%;
+        background: linear-gradient(90deg, #0a6b5c, var(--teal));
+        border-radius: 4px;
+        transition: width .8s ease;
+    }
+    .table-foot {
+        padding: 13px 16px;
+        background: #101010;
+        border-top: 1px solid #242424;
+        font-family: monospace;
+        font-size: 11.5px;
+        color: var(--muted);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+    }
+    .table-foot b { color: var(--teal); }
+
+    /* ============ ANALYTICS ============ */
+    .analytics-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 22px; }
+    .chart-card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 24px;
+    }
+    .chart-card h3 { margin: 0 0 4px; color: var(--gold); font-size: 1.05rem; }
+    .chart-card .sub {
+        font-size: 11.5px;
+        color: var(--muted);
+        font-family: monospace;
+        margin-bottom: 18px;
+    }
+    .bar-chart { display: flex; flex-direction: column; gap: 11px; }
+    .bar-row {
+        display: grid;
+        grid-template-columns: 128px 1fr 64px;
+        gap: 10px;
+        align-items: center;
+        font-size: 12.5px;
+    }
+    .bar-row .label {
+        color: #b0b0b0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .bar-row .track {
+        height: 18px;
+        background: #1a1a1a;
+        border-radius: 5px;
+        overflow: hidden;
+        border: 1px solid #242424;
+    }
+    .bar-row .track span {
+        display: block;
+        height: 100%;
+        width: 0;
+        border-radius: 5px;
+        transition: width 1s cubic-bezier(.2,.8,.3,1);
+    }
+    .bar-row .val {
+        font-family: monospace;
+        color: var(--teal);
+        text-align: right;
+        font-size: 12px;
+    }
+    .donut-wrap { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+    .donut { position: relative; width: 160px; height: 160px; flex-shrink: 0; }
+    .donut svg { transform: rotate(-90deg); }
+    .donut .center {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    .donut .center b {
+        font-family: monospace;
+        font-size: 1.35rem;
+        color: var(--teal);
+        line-height: 1;
+    }
+    .donut .center span {
+        font-size: 10px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-top: 4px;
+    }
+    .legend { flex: 1; min-width: 160px; display: flex; flex-direction: column; gap: 9px; }
+    .legend-item { display: flex; align-items: center; gap: 9px; font-size: 12.5px; color: #b8b8b8; }
+    .legend-item i { width: 11px; height: 11px; border-radius: 3px; flex-shrink: 0; }
+    .legend-item b { margin-left: auto; font-family: monospace; color: var(--teal); font-size: 12px; }
+
+    /* ============ OIL MINE ULTRA ============ */
+    .mine-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 26px;
+        align-items: start;
+    }
+    .rig-scene {
+        position: relative;
+        width: 100%;
+        height: 300px;
+        background: radial-gradient(ellipse at 50% 105%, #241a07 0%, #0d0d0d 72%);
+        border: 1px solid #2a2a2a;
+        border-radius: 16px;
+        overflow: hidden;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+    }
+    .ground {
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        height: 26px;
+        background: linear-gradient(#151009, #0a0805);
+        border-top: 1px solid #2c2213;
+    }
+    .derrick {
+        position: relative;
+        width: 140px;
+        height: 200px;
+        margin-bottom: 22px;
+        z-index: 2;
+    }
+    .tower {
+        position: absolute;
+        bottom: 0; left: 50%;
+        transform: translateX(-50%);
+        width: 120px; height: 172px;
+        clip-path: polygon(50% 0, 100% 100%, 0 100%);
+        background:
+            repeating-linear-gradient(60deg, rgba(255, 204, 0, .40) 0 2px, transparent 2px 20px),
+            repeating-linear-gradient(-60deg, rgba(255, 204, 0, .40) 0 2px, transparent 2px 20px),
+            #141414;
+    }
+    .rod {
+        position: absolute;
+        left: 50%; top: 6px;
+        width: 4px; height: 116px;
+        transform: translateX(-50%);
+        background: linear-gradient(#bdbdbd, #4a4a4a);
+        border-radius: 2px;
+    }
+    .derrick.drilling .rod { animation: bob .55s ease-in-out infinite alternate; }
+    @keyframes bob {
+        from { transform: translate(-50%, 0); }
+        to   { transform: translate(-50%, 16px); }
+    }
+    .head {
+        position: absolute;
+        left: 50%; top: 0;
+        width: 26px; height: 10px;
+        transform: translateX(-50%);
+        background: var(--gold);
+        border-radius: 3px;
+        box-shadow: 0 0 12px rgba(255, 204, 0, .6);
+    }
+    .derrick.drilling .head { animation: bob .55s ease-in-out infinite alternate; }
+    .drop {
+        position: absolute;
+        left: 50%; top: 58%;
+        width: 6px; height: 12px;
+        background: var(--gold);
+        border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        opacity: 0;
+        transform: translateX(-50%);
+        box-shadow: 0 0 8px var(--amber);
+    }
+    .derrick.drilling .drop { animation: fall .8s linear infinite; }
+    .derrick.drilling .d1 { animation-delay: 0s; }
+    .derrick.drilling .d2 { animation-delay: .27s; }
+    .derrick.drilling .d3 { animation-delay: .54s; }
+    @keyframes fall {
+        0%   { opacity: 0; transform: translate(-50%, 0) scale(.6); }
+        20%  { opacity: 1; }
+        100% { opacity: 0; transform: translate(-50%, 72px) scale(1); }
+    }
+    .pool {
+        position: absolute;
+        bottom: 18px; left: 50%;
+        transform: translateX(-50%);
+        width: 150px; height: 12px;
+        border-radius: 50%;
+        background: radial-gradient(ellipse, rgba(255, 204, 0, .35), transparent 70%);
+        opacity: .25;
+        transition: opacity .4s;
+    }
+    .rig-scene.drilling .pool { opacity: 1; }
+    .scene-caption {
+        font-family: monospace;
+        color: #6a6a6a;
+        letter-spacing: 2px;
+        font-size: 11px;
+        text-align: center;
+        margin-top: 10px;
+    }
+    .selected-card {
+        background: var(--panel);
+        border: 1px solid #2a2a2a;
+        border-left: 5px solid var(--gold);
+        border-radius: 14px;
+        padding: 18px 22px;
+        margin-top: 16px;
+    }
+    .selected-card h3 {
+        margin: 0 0 12px;
+        color: var(--gold);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.1rem;
+    }
+    .sel-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px 18px;
+        font-size: 13px;
+        color: #bbb;
+    }
+    .sel-stats b { color: #eee; font-weight: 600; }
+    .res-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 10px;
+        margin-top: 12px;
+    }
+    .res-card {
+        background: #1b1710;
+        padding: 12px 14px;
+        border-radius: 10px;
+        border: 2px solid #33291a;
+        cursor: pointer;
+        transition: transform .2s, border-color .2s, box-shadow .2s;
+        user-select: none;
+    }
+    .res-card:hover { transform: translateY(-3px); border-color: #6b552c; }
+    .res-card.active {
+        border-color: var(--gold);
+        box-shadow: 0 0 18px rgba(255, 204, 0, .22);
+        background: #221c11;
+    }
+    .res-card h4 {
+        margin: 0 0 4px;
+        color: #e6d5a8;
+        font-size: .9rem;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .res-card p { margin: 0; font-size: 11.5px; line-height: 1.4; color: #a49c8c; }
+    .res-card .tag {
+        display: inline-block;
+        margin-top: 6px;
+        font-family: monospace;
+        font-size: 10px;
+        padding: 2px 7px;
+        border-radius: 20px;
+        background: #2b2416;
+        color: var(--gold);
+        letter-spacing: 1px;
+    }
+    .mine-lab {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 26px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .progress-wrap {
+        height: 12px;
+        background: #1c1c1c;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid #2a2a2a;
+    }
+    .progress-bar {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, #6b4a00, var(--gold));
+        box-shadow: 0 0 16px rgba(255, 204, 0, .7);
+        transition: width .12s linear;
+    }
+    .lab-controls h2 { margin: 0 0 16px; color: var(--gold); font-size: 1.2rem; }
+    .slider-group { margin-bottom: 18px; }
+    .slider-group label {
+        display: flex;
+        justify-content: space-between;
+        font-size: 13px;
+        margin-bottom: 7px;
+        color: #ccc;
+    }
+    .slider-group label span { color: var(--gold); font-family: monospace; }
+    input[type="range"] {
+        width: 100%;
+        accent-color: var(--gold);
+        cursor: pointer;
+    }
+    .hint { font-size: 11px; color: #777; font-family: monospace; margin-top: 5px; }
+    .btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+    .btn-primary {
+        background: linear-gradient(#ffd633, #d4a017);
+        color: #1a1200;
+        box-shadow: 0 0 18px rgba(255, 204, 0, .25);
+    }
+    .btn-primary:hover { box-shadow: 0 0 26px rgba(255, 204, 0, .45); }
+    .lab-output {
+        display: flex;
+        gap: 22px;
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+    .tank-wrap { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .tank {
+        position: relative;
+        width: 100px;
+        height: 160px;
+        border: 3px solid #5a5a5a;
+        border-radius: 8px 8px 14px 14px;
+        background: rgba(255, 255, 255, .03);
+        overflow: hidden;
+        display: flex;
+        align-items: flex-end;
+    }
+    .tank-fill {
+        width: 100%;
+        height: 0%;
+        background: linear-gradient(#e8bc2e, #5c3f00);
+        transition: height .8s cubic-bezier(.2, .8, .3, 1);
+        box-shadow: 0 0 24px rgba(212, 160, 23, .7);
+    }
+    .tank-label {
+        font-family: monospace;
+        font-size: 12px;
+        color: var(--gold);
+        letter-spacing: 1px;
+    }
+    .result-box {
+        flex: 1;
+        min-width: 220px;
+        background: #161616;
+        border: 1px solid #2a2a2a;
+        border-radius: 14px;
+        padding: 16px;
+        min-height: 160px;
+    }
+    .result-box h3 {
+        margin: 0 0 10px;
+        font-size: .9rem;
+        color: var(--gold);
+        letter-spacing: 1px;
+    }
+    .res-line {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12.5px;
+        padding: 4px 0;
+        border-bottom: 1px dashed #242424;
+        color: #aaa;
+    }
+    .res-line:last-child { border-bottom: none; }
+    .res-line b { color: #eee; font-family: monospace; }
+    .res-line b.win { color: var(--good); }
+    .res-line b.bad { color: var(--bad); }
+    .log-wrap {
+        background: #131313;
+        border: 1px solid #242424;
+        border-radius: 14px;
+        padding: 16px;
+    }
+    .log-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    .log-head h3 { margin: 0; color: var(--gold); font-size: .95rem; }
+    .log-head button { padding: 5px 12px; font-size: 11.5px; }
+    .log {
+        max-height: 180px;
+        overflow-y: auto;
+        font-family: monospace;
+        font-size: 12px;
+        line-height: 1.8;
+    }
+    .log-entry { border-bottom: 1px solid #1e1e1e; padding: 3px 0; color: #b9b9b9; }
+    .log-entry .t { color: #555; margin-right: 8px; }
+    .log-entry.ok b { color: var(--good); }
+    .log-entry.bad b { color: var(--bad); }
+    .log-empty { color: #4a4a4a; font-style: italic; }
+
+    /* ============ W50 REGISTRY ============ */
+    .w50-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 18px;
+    }
+    .w50-card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-top: 3px solid var(--violet);
+        border-radius: 14px;
+        padding: 22px;
+        transition: transform .25s, border-color .25s;
+    }
+    .w50-card:hover {
+        transform: translateY(-5px);
+        border-top-color: var(--gold);
+    }
+    .w50-card .w50-icon {
+        font-size: 30px;
+        line-height: 1;
+        margin-bottom: 10px;
+    }
+    .w50-card h3 {
+        margin: 0 0 4px;
+        font-size: 1rem;
+        color: #e8d9b0;
+    }
+    .w50-card .w50-cat {
+        font-family: monospace;
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--violet);
+        margin-bottom: 14px;
+    }
+    .w50-dims {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+    .w50-dim {
+        background: #101010;
+        border: 1px solid #242424;
+        border-radius: 8px;
+        padding: 8px 10px;
+        text-align: center;
+    }
+    .w50-dim span {
+        display: block;
+        font-size: 9.5px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--muted);
+    }
+    .w50-dim b {
+        display: block;
+        color: var(--gold);
+        font-family: monospace;
+        font-size: .95rem;
+        margin-top: 2px;
+    }
+    .w50-vol {
+        font-family: monospace;
+        font-size: 11.5px;
+        color: #9a9a9a;
+        margin-bottom: 14px;
+    }
+    .w50-vol b { color: var(--teal); }
+    .w50-bar-wrap {
+        height: 22px;
+        background: #1a1a1a;
+        border-radius: 6px;
+        overflow: hidden;
+        border: 1px solid #242424;
+        margin-bottom: 6px;
+    }
+    .w50-bar {
+        height: 100%;
+        width: 0;
+        background: linear-gradient(90deg, #4a3a8a, var(--violet));
+        border-radius: 6px;
+        transition: width 1.4s cubic-bezier(.2,.8,.3,1);
+    }
+    .w50-scale {
+        font-family: monospace;
+        font-size: 10px;
+        color: #666;
+        display: flex;
+        justify-content: space-between;
+    }
+    .w50-note {
+        margin-top: 22px;
+        padding: 16px 20px;
+        border-radius: 12px;
+        background: #16121f;
+        border-left: 3px solid var(--violet);
+        color: #b8a8d8;
+        font-size: 13px;
+    }
+    .w50-note b { color: var(--violet); }
+
+    /* ============ REGION INSIGHTS ============ */
+    .insight-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 18px;
+    }
+    .insight-card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-top: 3px solid var(--teal);
+        border-radius: 14px;
+        padding: 22px;
+        transition: transform .25s, border-color .25s;
+    }
+    .insight-card:hover { transform: translateY(-4px); border-top-color: var(--gold); }
+    .insight-card h3 {
+        margin: 0 0 8px;
+        font-size: 1.03rem;
+        color: #e8d9b0;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+    }
+    .insight-card p { margin: 0 0 12px; font-size: 13px; color: #a6a6a6; }
+    .insight-meta { display: flex; flex-wrap: wrap; gap: 8px; font-family: monospace; font-size: 11px; }
+    .insight-meta span {
+        background: #101010;
+        border: 1px solid #2a2a2a;
+        border-radius: 20px;
+        padding: 3px 10px;
+        color: var(--muted);
+    }
+    .insight-meta span b { color: var(--teal); }
+
+    /* ============ SAFETY ============ */
+    .safety-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 18px;
+    }
+    .safety-card {
+        background: var(--panel-2);
+        border: 1px solid var(--line);
+        border-left: 4px solid var(--bad);
+        border-radius: 12px;
+        padding: 20px 22px;
+    }
+    .safety-card.good { border-left-color: var(--good); }
+    .safety-card.warn { border-left-color: var(--warn); }
+    .safety-card h3 { margin: 0 0 10px; font-size: 1rem; color: #eee; }
+    .safety-card p { margin: 0; font-size: 13px; color: #a8a8a8; }
+
+    /* ============ CHECKLIST ============ */
+    .checklist {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 26px 30px;
+    }
+    .checklist-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 13px;
+        padding: 13px 0;
+        border-bottom: 1px solid #1e1e1e;
+        cursor: pointer;
+        user-select: none;
+    }
+    .checklist-item:last-child { border-bottom: none; }
+    .checklist-item input {
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #3a3a3a;
+        border-radius: 6px;
+        flex-shrink: 0;
+        margin-top: 2px;
+        cursor: pointer;
+        position: relative;
+        transition: .2s;
+    }
+    .checklist-item input:checked { background: var(--teal); border-color: var(--teal); }
+    .checklist-item input:checked::after {
+        content: "✓";
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        color: #002a26;
+        font-size: 13px;
+        font-weight: 900;
+    }
+    .checklist-item input:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
+    .checklist-item .txt { font-size: 14px; color: #c4c4c4; }
+    .checklist-item input:checked + .txt { color: #7d7d7d; text-decoration: line-through; }
+    .checklist-item .txt b { color: var(--teal); display: block; font-size: 13.5px; }
+    .checklist-item input:checked + .txt b { color: #2a6a60; }
+
+    /* ============ REVEAL ============ */
+    .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+        .reveal { opacity: 1; transform: none; transition: none; }
+        html { scroll-behavior: auto; }
+        .live-update .dot { animation: none; }
+    }
+
+    /* ============ FOOTER ============ */
+    footer {
+        padding: 52px 22px 46px;
+        text-align: center;
+        color: #5a5a5a;
+        font-size: 13px;
+        border-top: 1px solid #1a1a1a;
+    }
+    footer .fnote {
+        max-width: 780px;
+        margin: 14px auto 0;
+        font-size: 12px;
+        line-height: 1.7;
+        color: #4a4a4a;
+    }
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 1060px) {
+        .analytics-grid { grid-template-columns: 1fr; }
+        .license-layout { grid-template-columns: 1fr; }
+        .country-list {
+            flex-direction: row;
+            overflow-x: auto;
+            max-height: none;
+            padding-bottom: 8px;
+        }
+        .country-btn { min-width: 210px; }
+        .mine-layout { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 940px) {
+        .phase-layout { grid-template-columns: 1fr; }
+        .phase-tabs {
+            flex-direction: row;
+            overflow-x: auto;
+            max-height: none;
+            padding-bottom: 8px;
+        }
+        .phase-tab { min-width: 220px; }
+        .pp-cols { grid-template-columns: 1fr; }
+        .lp-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+        .bar-row { grid-template-columns: 90px 1fr 52px; font-size: 11.5px; }
+        .mini-bar { display: none; }
+        thead th:nth-child(4),
+        tbody td:nth-child(4) { display: none; }
+    }
+    @media (max-width: 560px) {
+        section.block { padding: 56px 0; }
+        .phase-panel, .license-panel { padding: 24px 20px; }
+        .hero-inner { padding: 70px 18px 56px; }
+        .hero-stat { min-width: 130px; padding: 12px 16px; }
+        .donut { width: 130px; height: 130px; }
+    }
+</style>
+</head>
+<body>
+
+<!-- =========================================================
+     HERO
+     ========================================================= -->
+<header class="hero">
+    <canvas id="heroCanvas" aria-hidden="true"></canvas>
+    <div class="hero-inner">
+        <span class="eyebrow">Asia Field Atlas By Theory (Moshiur Rahman Sobuj) Shark Asia Sn4key</span>
+        <h1>Hydrocarbon Extraction <em>By Theory (Moshiur Rahman Sobuj) Shark Asia Sn4key</em></h1>
+        <p class="lead">
+            25 Asian countries, 22 live fields, the Oil Mine Ultra simulator and the
+            complete W50 dimensions registry — one integrated operating picture.
+        </p>
+        <div class="hero-stats">
+            <div class="hero-stat"><b>25</b><span>Asian Countries</span></div>
+            <div class="hero-stat"><b>22</b><span>Live Fields</span></div>
+            <div class="hero-stat"><b>6</b><span>Mine Types</span></div>
+            <div class="hero-stat"><b>6</b><span>W50 Models</span></div>
+        </div>
+        <div class="hero-actions">
+            <button class="btn btn-teal" id="heroPresent">▶ Enter Presentation Mode</button>
+            <a class="btn btn-ghost" href="#mine">⛏️ Oil Mine Ultra</a>
+            <a class="btn btn-ghost" href="#w50">📐 W50 Registry</a>
+        </div>
+    </div>
+</header>
+
+<!-- =========================================================
+     STICKY NAV
+     ========================================================= -->
+<nav class="toc" aria-label="Section navigation">
+    <div class="toc-inner">
+        <a href="#lifecycle">Lifecycle</a>
+        <a href="#licensing">Licensing</a>
+        <a href="#live">Live Fields</a>
+        <a href="#analytics">Analytics</a>
+        <a href="#mine">Oil Mine Ultra</a>
+        <a href="#w50">W50 Registry</a>
+        <a href="#insights">Insights</a>
+        <a href="#safety">Safety</a>
+        <a href="#checklist">Checklist</a>
+        <button class="present-btn" id="navPresent">▶ Present</button>
+    </div>
+</nav>
+
+<main>
+
+<!-- =========================================================
+     LIFECYCLE
+     ========================================================= -->
+<section class="block" id="lifecycle">
+    <div class="wrap">
+        <div class="sec-head reveal">
+            <span class="kicker">Part 01</span>
+            <h2>The Nine Phases of Extraction </h2>
+            <p>Select any phase to open its field briefing. Tabs you open are marked as reviewed and build your field-readiness score.</p>
+        </div>
+
+        <div class="readiness reveal">
+            <span class="readiness-label">Field Readiness</span>
+            <div class="readiness-track">
+                <div class="readiness-fill" id="readinessFill"></div>
+            </div>
+            <span class="readiness-count" id="readinessCount">0 / 9 phases reviewed</span>
+        </div>
+
+        <div class="phase-layout reveal">
+            <div class="phase-tabs" id="phaseTabs" role="tablist" aria-label="Extraction phases"></div>
+            <div class="phase-panel" id="phasePanel" role="tabpanel" tabindex="0"></div>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================
+     ASIA LICENSING
+     ========================================================= -->
+<section class="block" id="licensing">
+    <div class="wrap">
+        <div class="sec-head reveal">
+            <span class="kicker">Part 02</span>
+            <h2>Asia Country Licensing Layer</h2>
+            <p>Every Asian jurisdiction awards subsurface rights through its own fiscal and regulatory regime. Search, filter by sub-region, or select a country to view its profile.</p>
+        </div>
+
+        <div class="license-layout reveal">
+            <div>
+                <div class="country-tools">
+                    <input type="search" class="search-box" id="countrySearch" placeholder="Search country…" aria-label="Search countries">
+                    <select class="region-select" id="regionFilter" aria-label="Filter by region">
+                        <option value="all">All Regions</option>
+                        <option value="East Asia">East Asia</option>
+                        <option value="Southeast Asia">Southeast Asia</option>
+                        <option value="South Asia">South Asia</option>
+                        <option value="Central Asia">Central Asia</option>
+                        <option value="Middle East">Middle East</option>
+                    </select>
+                </div>
+                <div class="country-list" id="countryList" role="tablist" aria-label="Asian licensing jurisdictions"></div>
+            </div>
+            <div class="license-panel" id="licensePanel" role="tabpanel" tabindex="0"></div>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================
+     LIVE FIELDS
+     ========================================================= -->
+<section class="block" id="live">
+    <div class="wrap">
+        <div class="sec-head reveal">
+            <span class="kicker">Part 03</span>
+            <h2>Live Asian Field Data</h2>
+            <p>Twenty-two tracked fields across Asia with simulated production telemetry. Data refreshes every few seconds; filter by field type to focus the table.</p>
+        </div>
+
+        <div class="live-toolbar reveal">
+            <button class="filter-btn active" data-filter="all">All Types</button>
+            <button class="filter-btn" data-filter="onshore">Onshore</button>
+            <button class="filter-btn" data-filter="offshore">Offshore</button>
+            <button class="filter-btn" data-filter="deepwater">Deepwater</button>
+            <button class="filter-btn" data-filter="shale">Shale</button>
+            <button class="filter-btn" data-filter="sands">Oil Sands</button>
+            <button class="filter-btn" data-filter="frontier">Frontier</button>
+            <span class="grow"></span>
+            <button class="btn btn-ghost btn-sm" id="refreshBtn">⟳ Refresh Now</button>
+            <span class="live-update"><span class="dot"></span><span id="lastUpdate">live</span></span>
+        </div>
+
+        <div class="table-wrap reveal">
+            <table id="fieldTable">
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Type</th>
+                        <th>Country</th>
+                        <th>Depth</th>
+                        <th>Output</th>
+                        <th>Trend</th>
+                        <th>Uptime</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="fieldBody"></tbody>
+            </table>
+            <div class="table-foot" id="tableFoot"></div>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================
+     ANALYTICS
+     ========================================================= -->
+<section class="block" id="analytics">
+    <div class="wrap">
+        <div class="sec-head reveal">
+            <span class="kicker">Part 04</span>
+            <h2>Asia Production Analytics</h2>
+            <p>Aggregate view of tracked Asian output by country and operating status.</p>
+        </div>
+
+        <div class="analytics-grid">
+            <div class="chart-card reveal">
+                <h3>Output by Asian Country</h3>
+                <div class="sub">barrels per day (bpd)</div>
+                <div class="bar-chart" id="countryChart"></div>
+            </div>
+
+            <div class="chart-card reveal">
+                <h3>Field Status Mix</h3>
+                <div class="sub">share of tracked fields</div>
+                <div class="donut-wrap">
+                    <div class="donut">
+                        <svg viewBox="0 0 160 160" width="100%" height="100%" aria-hidden="true">
+                            <circle cx="80" cy="80" r="62" fill="none" stroke="#1e1e1e" stroke-width="22"/>
+                            <circle id="donutOnline" cx="80" cy="80" r="62" fill="none" stroke="#4dff88" stroke-width="22"
+                                    stroke-dasharray="0 390" stroke-linecap="butt"/>
+                            <circle id="donutMaint" cx="80" cy="80" r="62" fill="none" stroke="#ffb347" stroke-width="22"
+                                    stroke-dasharray="0 390" stroke-linecap="butt"/>
+                            <circle id="donutDrill" cx="80" cy="80" r="62" fill="none" stroke="#4da6ff" stroke-width="22"
+                                    stroke-dasharray="0 390" stroke-linecap="butt"/>
+                        </svg>
+                        <div class="center">
+                            <b id="donutTotal">22</b>
+                            <span>fields</span>
+                        </div>
+                    </div>
+                    <div class="legend">
+                        <div class="legend-item"><i style="background:#4dff88"></i>Online <b id="legOnline">—</b></div>
+                        <div class="legend-item"><i style="background:#ffb347"></i>Maintenance <b id="legMaint">—</b></div>
+                        <div class="legend-item"><i style="background:#4da6ff"></i>Drilling <b id="legDrill">—</b></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================
+     OIL MINE ULTRA
+     ========================================================= -->
+<section class="block" id="mine">
+    <div class="wrap">
+        <div class="sec-head reveal">
+            <span class="kicker">Part 05</span>
+            <h2>⛏️ Oil Mine Ultra — Asia Simulator</h2>
+            <p>Pick a reservoir class, tune the drilling parameters, and run the extraction. Each field type has its own depth, pressure and technology profile.</p>
+        </div>
+
+        <div class="mine-layout reveal">
+            <div>
+                <div class="rig-scene" id="rigScene">
+                    <div class="derrick" id="derrick">
+                        <div class="tower"></div>
+                        <div class="head"></div>
+                        <div class="rod"></div>
+                        <div class="drop d1"></div>
+                        <div class="drop d2"></div>
+                        <div class="drop d3"></div>
+                    </div>
+                    <div class="pool"></div>
+                    <div class="ground"></div>
+                </div>
+                <p class="scene-caption" id="sceneCaption">ACTIVE DERRICK — AWAITING EXTRACTION ORDER</p>
+
+                <div class="selected-card">
+                    <h3><span id="sel-icon">🛢️</span> <span id="sel-name">Light Sweet Crude</span></h3>
+                    <div class="sel-stats">
+                        <div>Target Depth: <b id="sel-depth">—</b></div>
+                        <div>Difficulty: <b id="sel-diff">—</b></div>
+                        <div>API Range: <b id="sel-api">—</b></div>
+                        <div>Sulfur: <b id="sel-sulfur">—</b></div>
+                    </div>
+                </div>
+
+                <div class="res-grid" id="resGrid"></div>
+            </div>
+
+            <div class="mine-lab">
+                <div class="progress-wrap">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+
+                <div class="lab-controls">
+                    <h2>Extraction Console</h2>
+                    <div class="slider-group">
+                        <label for="depth">Drill Depth <span id="depth-val">1500 m</span></label>
+                        <input type="range" id="depth" min="100" max="6500" step="50" value="1500">
+                        <div class="hint" id="depth-hint">Target for this field: 1500 m</div>
+                    </div>
+                    <div class="slider-group">
+                        <label for="pressure">Reservoir Pressure <span id="pressure-val">35 MPa</span></label>
+                        <input type="range" id="pressure" min="5" max="100" step="1" value="35">
+                        <div class="hint" id="pressure-hint">Optimal ≈ 35 MPa for current depth</div>
+                    </div>
+                    <div class="slider-group">
+                        <label for="tech">Technology Level <span id="tech-val">5 / 10</span></label>
+                        <input type="range" id="tech" min="1" max="10" step="1" value="5">
+                        <div class="hint">Higher tech = better recovery, lower blowout risk</div>
+                    </div>
+                    <div class="btn-row">
+                        <button class="btn btn-primary btn-sm" id="mineBtn">⛏️ Start Extraction</button>
+                        <button class="btn btn-ghost btn-sm" id="allBtn">🌐 Mine All Types</button>
+                        <button class="btn btn-ghost btn-sm" id="tuneBtn">🎯 Auto-Tune</button>
+                    </div>
+                </div>
+
+                <div class="lab-output">
+                    <div class="tank-wrap">
+                        <div class="tank"><div class="tank-fill" id="tankFill"></div></div>
+                        <div class="tank-label" id="tankLabel">0 BBL</div>
+                    </div>
+                    <div class="result-box">
+                        <h3>📊 EXTRACTION REPORT</h3>
+                        <div class="res-line"><span>Reservoir</span><b id="r-name">—</b></div>
+                        <div class="res-line"><span>Yield</span><b id="r-yield">—</b></div>
+                        <div class="res-line"><span>API Gravity</span><b id="r-api">—</b></div>
+                        <div class="res-line"><span>Sulfur Content</span><b id="r-sulfur">—</b></div>
+                        <div class="res-line"><span>Quality Grade</span><b id="r-grade">—</b></div>
+                        <div class="res-line"><span>Market Value</span><b id="r-value">—</b></div>
+                        <div class="res-line"><span>Status</span><b id="r-status">Idle</b></div>
+                    </div>
+                </div>
+
+                <div class="log-wrap">
+                    <div class="log-head">
+                        <h3>📋 Extraction Log</h3>
+                        <button class="btn btn-ghost btn-sm" id="clearLog">Clear</button>
+                    </div>
+                    <div class="log" id="log">
+                        <div class="log-empty">No extraction records yet. Select a reservoir and start mining.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================
+     W50 REGISTRY
+     ========================================================= -->
+<section class="block" id="w50">
+    <div class="wrap">
+        <div class="sec-head reveal">
+            <span class="kicker">Part 06</span>
+            <h2>📐 W50 Dimensions Registry</h2>
+            <p>Six products share the "W50" designation — from a 25 m³ wheel loader to a 9 mm smartphone. Every dimension is shown in millimetres, with a log-scale visual comparison so wildly different scales sit side by side.</p>
+        </div>
+
+        <div class="w50-grid reveal" id="w50Grid"></div>
+
+        <div class="w50-note reveal">
+            <b>Scale note:</b> The New Holland W50 wheel loader is roughly 310 million times larger in volume than the QMobile Noir W50 smartphone. A logarithmic bar makes both visible at once — linear scale would flatten five of the six models to a single pixel.
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================
+     REGION INSIGHTS
+     ========================================================= -->
+<section class="block" id="insights">
+    <div class="wrap">
+        <div class="sec-head reveal">
+            <span class="kicker">Part 07</span>
+            <h2>Asian Sub-Region Insights</h2>
+            <p>Five sub-regions, five very different hydrocarbon stories. Each carries its own geology, fiscal regime and geopolitical risk.</p>
+        </div>
+
+        <div class="insight-grid reveal">
+            <article class="insight-card">
+                <h3>🏙️ East Asia</h3>
+                <p>China dominates, with mature onshore basins (Daqing, Shengli) and growing offshore and shale output. Japan and South Korea are major importers with limited domestic upstream.</p>
+                <div class="insight-meta">
+                    <span>Leader <b>China</b></span>
+                    <span>Focus <b>Onshore</b></span>
+                    <span>Trend <b>Shale</b></span>
+                </div>
+            </article>
+            <article class="insight-card">
+                <h3>🌴 Southeast Asia</h3>
+                <p>Indonesia, Malaysia, Vietnam and Brunei anchor production. Offshore basins dominate; mature fields face decline while deepwater plays offer growth.</p>
+                <div class="insight-meta">
+                    <span>Leader <b>Indonesia</b></span>
+                    <span>Focus <b>Offshore</b></span>
+                    <span>Trend <b>Deepwater</b></span>
+                </div>
+            </article>
+            <article class="insight-card">
+                <h3>🕉️ South Asia</h3>
+                <p>India is the key market, with growing refining capacity and exploration in the Krishna-Godavari and Rajasthan basins. Pakistan and Bangladesh have smaller but active fields.</p>
+                <div class="insight-meta">
+                    <span>Leader <b>India</b></span>
+                    <span>Focus <b>Onshore</b></span>
+                    <span>Trend <b>Imports</b></span>
+                </div>
+            </article>
+            <article class="insight-card">
+                <h3>🏔️ Central Asia</h3>
+                <p>Kazakhstan and Turkmenistan hold vast Caspian reserves. Landlocked geography makes export routes — CPC, TAPI, China pipelines — a decisive strategic factor.</p>
+                <div class="insight-meta">
+                    <span>Leader <b>Kazakhstan</b></span>
+                    <span>Focus <b>Onshore</b></span>
+                    <span>Trend <b>Export</b></span>
+                </div>
+            </article>
+            <article class="insight-card">
+                <h3>🕌 Middle East (Asia)</h3>
+                <p>The Gulf states hold the world's lowest-cost reserves. Saudi Arabia, UAE, Iraq, Kuwait and Iran dominate global supply and are central to any energy transition scenario.</p>
+                <div class="insight-meta">
+                    <span>Leader <b>Saudi Arabia</b></span>
+                    <span>Focus <b>Onshore</b></span>
+                    <span>Trend <b>Scale</b></span>
+                </div>
+            </article>
+            <article class="insight-card">
+                <h3>🌏 Cross-Region Themes</h3>
+                <p>Asian demand growth outpaces the rest of the world. Refining capacity, LNG import terminals and pipeline diplomacy are as important as upstream drilling.</p>
+                <div class="insight-meta">
+                    <span>Driver <b>Demand</b></span>
+                    <span>Focus <b>LNG</b></span>
+                    <span>Trend <b>Growth</b></span>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================
+     SAFETY
+     ========================================================= -->
+<section class="block" id="safety">
+    <div class="wrap">
+        <div class="sec-head reveal">
+            <span class="kicker">Part 08</span>
+            <h2>Safety &amp; Environment</h2>
+            <p>Extraction is a high-consequence activity. These are the controls that make it manageable across Asian operating environments.</p>
+        </div>
+
+        <div class="safety-grid reveal">
+            <article class="safety-card">
+                <h3>💥 Well Control</h3>
+                <p>Blowout preventers, kick detection while drilling, and mud-weight management are non-negotiable. Every well must be able to be shut in within seconds.</p>
+            </article>
+            <article class="safety-card warn">
+                <h3>💧 Water Protection</h3>
+                <p>Surface casing plus cemented annulus isolates freshwater aquifers — critical in densely populated Asian river basins.</p>
+            </article>
+            <article class="safety-card good">
+                <h3>🌱 Emissions Reduction</h3>
+                <p>Associated gas capture instead of flaring, methane leak detection, and electrified operations cut the carbon intensity of every barrel.</p>
+            </article>
+            <article class="safety-card">
+                <h3>🛢️ Spill Response</h3>
+                <p>Containment booms, skimmers and rapid shut-in valves. Pipeline integrity is monitored continuously — vital in the Strait of Malacca and South China Sea.</p>
+            </article>
+            <article class="safety-card warn">
+                <h3>🌊 Monsoon &amp; Typhoon Risk</h3>
+                <p>Asian offshore operations face seasonal cyclones. Weather routing, evacuation plans and robust mooring design are essential.</p>
+            </article>
+            <article class="safety-card good">
+                <h3>♻️ Decommissioning</h3>
+                <p>Wells are plugged with cement, platforms removed or reefed, and the site restored. The lifecycle does not end at the last barrel.</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================
+     CHECKLIST
+     ========================================================= -->
+<section class="block" id="checklist">
+    <div class="wrap">
+        <div class="sec-head reveal">
+            <span class="kicker">Part 09</span>
+            <h2>Field Readiness Checklist</h2>
+            <p>Tick each item to confirm an Asian project is ready to move to the next phase.</p>
+        </div>
+
+        <div class="checklist reveal">
+            <label class="checklist-item">
+                <input type="checkbox">
+                <span class="txt"><b>Geological model signed off</b>Seismic interpretation, trap definition and volumetric reserve estimate peer-reviewed.</span>
+            </label>
+            <label class="checklist-item">
+                <input type="checkbox">
+                <span class="txt"><b>Mineral rights secured</b>Lease, surface access and all national and local regulatory permits in hand.</span>
+            </label>
+            <label class="checklist-item">
+                <input type="checkbox">
+                <span class="txt"><b>Environmental impact assessed</b>Baseline surveys, water sourcing plan and stakeholder consultation complete.</span>
+            </label>
+            <label class="checklist-item">
+                <input type="checkbox">
+                <span class="txt"><b>Drilling programme approved</b>Casing design, mud programme, BOP stack and contingency plans verified.</span>
+            </label>
+            <label class="checklist-item">
+                <input type="checkbox">
+                <span class="txt"><b>Well integrity barriers tested</b>Cement bond log and pressure tests confirm two independent barriers.</span>
+            </label>
+            <label class="checklist-item">
+                <input type="checkbox">
+                <span class="txt"><b>Recovery strategy chosen</b>Primary, secondary or EOR scheme selected with reservoir simulation support.</span>
+            </label>
+            <label class="checklist-item">
+                <input type="checkbox">
+                <span class="txt"><b>Take-off capacity contracted</b>Pipeline, tanker or terminal capacity confirmed for expected volumes.</span>
+            </label>
+            <label class="checklist-item">
+                <input type="checkbox">
+                <span class="txt"><b>Decommissioning plan funded</b>Abandonment cost estimate and financial assurance in place.</span>
+            </label>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<footer>
+    <strong style="color:#8a8a8a;">Asia Hydrocarbon Extraction — Field Atlas + Oil Mine Ultra + W50 Registry</strong>
+    <p class="fnote">
+        Educational reference. Licensing profiles are simplified summaries; live field telemetry is simulated for demonstration.
+        W50 dimensions are manufacturer-published transport dimensions; volume figures are computed from those dimensions for comparison only.
+    </p>
+</footer>
+
+<script>
+/* =========================================================
+   HERO CANVAS
+   ========================================================= */
+(function heroCanvas() {
+    const canvas = document.getElementById('heroCanvas');
+    const ctx = canvas.getContext('2d');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let W = 0, H = 0, dpr = 1, bubbles = [], t = 0, raf = null;
+
+    function resize() {
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        W = canvas.clientWidth; H = canvas.clientHeight;
+        canvas.width = Math.floor(W * dpr);
+        canvas.height = Math.floor(H * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        buildBubbles();
+    }
+    function buildBubbles() {
+        const count = Math.max(24, Math.min(70, Math.floor(W / 22)));
+        bubbles = [];
+        for (let i = 0; i < count; i++) {
+            bubbles.push({
+                x: Math.random() * W, y: Math.random() * H,
+                r: 1 + Math.random() * 2.6,
+                speed: 0.18 + Math.random() * 0.55,
+                drift: (Math.random() - 0.5) * 0.28,
+                alpha: 0.10 + Math.random() * 0.40
+            });
+        }
+    }
+    function draw() {
+        ctx.clearRect(0, 0, W, H);
+        for (const b of bubbles) {
+            b.y -= b.speed; b.x += b.drift;
+            if (b.y < -10) { b.y = H + 10; b.x = Math.random() * W; }
+            if (b.x < -10) b.x = W + 10;
+            if (b.x > W + 10) b.x = -10;
+            ctx.beginPath();
+            ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(61, 214, 196, ${b.alpha})`;
+            ctx.fill();
+        }
+        const baseY = H * 0.82, amp = 26;
+        ctx.beginPath();
+        for (let x = 0; x <= W; x += 4) {
+            const y = baseY
+                + Math.sin((x * 0.012) + t * 0.9) * amp * 0.35
+                + Math.sin((x * 0.031) + t * 1.7) * amp * 0.22
+                + Math.sin((x * 0.005) + t * 0.5) * amp * 0.6;
+            if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        const grad = ctx.createLinearGradient(0, 0, W, 0);
+        grad.addColorStop(0, 'rgba(61,214,196,0)');
+        grad.addColorStop(0.5, 'rgba(61,214,196,0.55)');
+        grad.addColorStop(1, 'rgba(61,214,196,0)');
+        ctx.strokeStyle = grad; ctx.lineWidth = 1.6; ctx.stroke();
+
+        ctx.beginPath();
+        for (let x = 0; x <= W; x += 6) {
+            const y = H * 0.9 + Math.sin((x * 0.008) - t * 0.6) * 14;
+            if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        ctx.strokeStyle = 'rgba(255,204,0,0.12)'; ctx.lineWidth = 1; ctx.stroke();
+        t += 0.016;
+        raf = requestAnimationFrame(draw);
+    }
+    function start() { if (!raf) draw(); }
+    function stop() { if (raf) { cancelAnimationFrame(raf); raf = null; } }
+    window.addEventListener('resize', resize);
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) stop();
+        else if (!reduce) start();
+    });
+    resize();
+    if (!reduce) start();
+    else {
+        for (const b of bubbles) {
+            ctx.beginPath();
+            ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(61, 214, 196, ${b.alpha})`;
+            ctx.fill();
+        }
+    }
+})();
+
+/* =========================================================
+   PRESENTATION MODE
+   ========================================================= */
+(function presentMode() {
+    function toggle() {
+        const on = document.body.classList.toggle('present');
+        if (on) window.scrollTo({ top: 0, behavior: 'smooth' });
+        ['heroPresent', 'navPresent'].forEach(id => {
+            const b = document.getElementById(id);
+            if (b) b.textContent = on ? '✕ Exit Presentation' : '▶ Present';
+        });
+    }
+    document.getElementById('heroPresent').addEventListener('click', toggle);
+    document.getElementById('navPresent').addEventListener('click', toggle);
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && document.body.classList.contains('present')) toggle();
+    });
+})();
+
+/* =========================================================
+   PHASE DATA
+   ========================================================= */
+const PHASES = [
+    { id:'explore', num:'01', icon:'🔍', title:'Exploration & Survey', tag:'Find the Field',
+      desc:'Reflection seismic maps the subsurface: sound waves bounce off rock layers and the echoes are processed into an image. Gravity, magnetic and electromagnetic surveys add density and resistivity information, while basin modelling predicts whether oil could have been generated, migrated and trapped.',
+      actions:['Acquire 2D or 3D seismic over the basin','Interpret horizons, faults and trapping geometry','Build a static geological model with porosity and permeability','Estimate volumetrics: oil in place and recoverable fraction'],
+      checks:['Seismic data quality and depth conversion','Working petroleum system (source, reservoir, seal)','Probability of success versus dry-hole cost'],
+      note:'Asia has frontier basins — the South China Sea, Andaman Sea, offshore Myanmar — where exploration risk is high but discovery size can be very large.',
+      metrics:[{label:'Seismic Coverage',value:'3D'},{label:'Frontier Basins',value:'Many'},{label:'Exploration Success',value:'~20%'}] },
+    { id:'lease', num:'02', icon:'📜', title:'Lease, Permit & Social Licence', tag:'Legal & Regulatory',
+      desc:'Asian governments award licences through concessions, production-sharing contracts (PSCs) or bid rounds. In Southeast Asia the PSC model dominates, while the Gulf states mostly retain state operators. Before drilling, operators must complete environmental impact assessments and community consultation.',
+      actions:['Acquire mineral rights and surface access agreements','Complete environmental and social impact assessment','Obtain drilling, water and emissions permits','Negotiate local content and benefit-sharing terms'],
+      checks:['Clear title to the mineral estate','Approved EIA with mitigation commitments','Grievance mechanism and stakeholder engagement plan'],
+      note:'Regulatory timelines vary enormously across Asia — from fast-track national oil company approvals to multi-year environmental reviews.',
+      metrics:[{label:'Dominant Model',value:'PSC'},{label:'Typical EIA',value:'6–24 mo'},{label:'Key Risk',value:'Delay'}] },
+    { id:'drill', num:'03', icon:'⛏️', title:'Drilling the Well', tag:'Subsurface Engineering',
+      desc:'A rotating drill bit cuts through rock while drilling mud circulates to cool the bit, carry cuttings and hold back formation pressure. Successively smaller casing strings are run and cemented. Directional and horizontal drilling let the wellbore follow the reservoir.',
+      actions:['Set conductor and surface casing, cement each string','Maintain mud weight inside the safe pressure window','Steer the bit with measurement-while-drilling tools','Keep the blowout preventer tested and ready'],
+      checks:['Pore pressure versus fracture gradient window','Cement bond log on every casing string','BOP function tests and kick drills'],
+      note:'The single greatest drilling hazard is a kick. Detected early it is manageable; missed, it becomes a blowout.',
+      metrics:[{label:'Typical Depth',value:'2–5 km'},{label:'Horizontal Reach',value:'up to 3 km'},{label:'Drilling Time',value:'2–10 wk'}] },
+    { id:'complete', num:'04', icon:'🔧', title:'Completion & Well Integrity', tag:'Prepare to Produce',
+      desc:'Drilling creates the hole; completion turns it into a producing well. Production casing is perforated at the reservoir, tubing is run inside the casing, a packer isolates the annulus, and the christmas tree is installed. Sand control prevents reservoir rock from flowing in with the oil.',
+      actions:['Perforate the production casing across the pay zone','Install sand control and production tubing','Set the packer and test the annulus','Install the christmas tree and flowline'],
+      checks:['Two independent well barriers verified','Pressure test of tubing and casing annulus','Stimulation design if required'],
+      note:'Well integrity is a lifecycle obligation, not a one-time test. Barrier status must be re-verified at every intervention.',
+      metrics:[{label:'Perforations',value:'100s'},{label:'Barriers',value:'2 min'},{label:'Completion',value:'1–4 wk'}] },
+    { id:'primary', num:'05', icon:'🛢️', title:'Primary Recovery', tag:'Natural Drive',
+      desc:'Once opened, natural reservoir energy drives oil into the wellbore. Recovery is typically only 5–15% of oil in place because pressure falls as fluids are removed. Artificial lift takes over when natural flow declines.',
+      actions:['Bring the well online under controlled choke','Monitor pressure, water cut and gas-oil ratio','Install artificial lift when natural flow declines','Log production to update the reservoir model'],
+      checks:['Decline curve matches forecast','Water cut within acceptable limits','No casing pressure indicating a barrier issue'],
+      note:'Many mature Asian fields — Daqing, Minas, Arun — are deep into primary decline and now depend on secondary and EOR.',
+      metrics:[{label:'Recovery',value:'5–15%'},{label:'Drive',value:'Natural'},{label:'Lift',value:'Pump / ESP'}] },
+    { id:'secondary', num:'06', icon:'💧', title:'Secondary Recovery', tag:'Pressure Maintenance',
+      desc:'Water or gas is injected through dedicated injection wells to maintain reservoir pressure and sweep oil toward producers. Injection patterns are designed to maximise sweep efficiency while avoiding early breakthrough at producing wells.',
+      actions:['Convert selected wells to water or gas injection','Design the injection pattern for sweep efficiency','Treat and filter injected water to protect the formation','Track breakthrough with tracers and production logs'],
+      checks:['Voidage replacement ratio near 1.0','Injection pressure below fracture gradient','No cross-flow behind casing'],
+      note:"Waterflooding is the workhorse of Asian onshore fields — Daqing in China is one of the world's largest waterflood projects.",
+      metrics:[{label:'Cumulative',value:'25–35%'},{label:'Fluid',value:'Water / Gas'},{label:'Pattern',value:'5-spot'}] },
+    { id:'eor', num:'07', icon:'🧪', title:'Enhanced Oil Recovery', tag:'Tertiary Stage',
+      desc:'EOR changes the physics and chemistry of the oil itself. CO₂ miscible flooding, polymer floods, surfactant injection and thermal methods — steam flooding and SAGD — each target a different recovery bottleneck.',
+      actions:['Screen EOR methods against oil and reservoir properties','Run core floods and pilot tests before full deployment','Secure CO₂ supply, polymer or steam generation capacity','Model incremental recovery and economics'],
+      checks:['CO₂ containment and monitoring plan','Solvent and chemical handling safety','Emissions balance of steam generation'],
+      note:"Asia leads in polymer flooding — China's Daqing field has run one of the world's largest polymer EOR programmes.",
+      metrics:[{label:'Recovery',value:'up to 60%'},{label:'Methods',value:'Polymer / CO₂'},{label:'Lead Time',value:'Years'}] },
+    { id:'transport', num:'08', icon:'🚛', title:'Transport, Refining & Distribution', tag:'Surface Logistics',
+      desc:'Produced fluids are separated into oil, gas and water. Crude moves by pipeline, tanker or rail to a refinery, where fractional distillation splits it into LPG, naphtha, gasoline, kerosene, diesel and heavier fractions. Products then move through terminals and retail networks.',
+      actions:['Separate and stabilise produced fluids at the battery','Meter and blend crude to pipeline specification','Contract transport capacity and storage','Track product yield through the refinery'],
+      checks:['Pipeline integrity and leak detection','Vapour recovery on tanks and loading','Product quality meets market specification'],
+      note:"Asia is the world's fastest-growing refining region, with major capacity in China, India, South Korea and Singapore.",
+      metrics:[{label:'Crude by Sea',value:'Majority'},{label:'Refining Hub',value:'Singapore'},{label:'Products',value:'Fuels / Lubes'}] },
+    { id:'decom', num:'09', icon:'♻️', title:'Decommissioning & Restoration', tag:'End of Life',
+      desc:'When production is no longer economic, the well must be permanently abandoned. Cement plugs are set across permeable zones and the wellhead is cut and capped. Offshore platforms are removed, reused or left as artificial reefs under permit.',
+      actions:['Set permanent cement plugs across all flow paths','Cut and cap wellheads, verify barrier integrity','Remove or repurpose surface facilities','Remediate soil, restore habitat, monitor post-closure'],
+      checks:['Plug and abandonment records filed with regulator','Post-abandonment pressure monitoring','Financial assurance released only after sign-off'],
+      note:'Asia faces a growing decommissioning wave as mature offshore fields in Malaysia, Indonesia and Brunei reach end of life.',
+      metrics:[{label:'Plug Length',value:'50–100 m'},{label:'Timeline',value:'1–5 yr'},{label:'Funding',value:'Escrowed'}] }
+];
+
+/* =========================================================
+   PHASE UI
+   ========================================================= */
+(function phaseUI() {
+    const tabsEl = document.getElementById('phaseTabs');
+    const panelEl = document.getElementById('phasePanel');
+    const fillEl = document.getElementById('readinessFill');
+    const countEl = document.getElementById('readinessCount');
+    const visited = new Set();
+
+    function buildTabs() {
+        PHASES.forEach((p, i) => {
+            const btn = document.createElement('button');
+            btn.className = 'phase-tab';
+            btn.type = 'button';
+            btn.setAttribute('role', 'tab');
+            btn.id = 'tab-' + p.id;
+            btn.setAttribute('aria-controls', 'panel-' + p.id);
+            btn.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+            btn.tabIndex = i === 0 ? 0 : -1;
+            btn.innerHTML = `<span class="num">${p.num}</span><span class="ic">${p.icon}</span><span class="ttl">${p.title}</span><span class="done" aria-hidden="true">✓</span>`;
+            btn.addEventListener('click', () => select(i));
+            btn.addEventListener('keydown', e => {
+                if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); select((i + 1) % PHASES.length, true); }
+                else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); select((i - 1 + PHASES.length) % PHASES.length, true); }
+            });
+            tabsEl.appendChild(btn);
+        });
+    }
+
+    function select(i, focusTab) {
+        const p = PHASES[i];
+        document.querySelectorAll('.phase-tab').forEach((t, idx) => {
+            t.setAttribute('aria-selected', idx === i ? 'true' : 'false');
+            t.tabIndex = idx === i ? 0 : -1;
+        });
+        panelEl.setAttribute('id', 'panel-' + p.id);
+        panelEl.innerHTML = `
+            <div class="pp-top">
+                <div class="pp-badge">${p.num}</div>
+                <div><h3>${p.icon} ${p.title}</h3><span class="pp-tag">${p.tag}</span></div>
+            </div>
+            <p class="pp-desc">${p.desc}</p>
+            <div class="pp-cols">
+                <div><h4>Key Actions</h4><ul>${p.actions.map(a => `<li>${a}</li>`).join('')}</ul></div>
+                <div><h4>What to Verify</h4><ul>${p.checks.map(c => `<li>${c}</li>`).join('')}</ul></div>
+            </div>
+            <div class="pp-note"><b>Asia note:</b> ${p.note}</div>
+            <div class="pp-metric">${p.metrics.map(m => `<div class="metric-chip">${m.label}<b>${m.value}</b></div>`).join('')}</div>
+        `;
+        visited.add(p.id);
+        const tab = document.getElementById('tab-' + p.id);
+        if (tab) tab.classList.add('visited');
+        updateReadiness();
+        if (focusTab) tab.focus();
+    }
+    function updateReadiness() {
+        fillEl.style.width = (visited.size / PHASES.length) * 100 + '%';
+        countEl.textContent = `${visited.size} / ${PHASES.length} phases reviewed`;
+    }
+    buildTabs();
+    select(0);
+})();
+
+/* =========================================================
+   ASIA COUNTRIES — 25
+   ========================================================= */
+const COUNTRIES = [
+    { id:'cn', flag:'🇨🇳', name:'China', region:'East Asia', rank:'#1 Asia',
+      model:'State-owned (CNPC, Sinopec, CNOOC) + PSCs', production:'~4,100 kbpd', reserves:'~26 billion bbl', regulator:'National Energy Administration',
+      stats:[{label:'Licence Model',value:'State'},{label:'Royalty',value:'State-set'},{label:'Licence Term',value:'25–30 yr'},{label:'Production',value:'4,100 kbpd'}],
+      pros:['Large mature onshore basins (Daqing, Shengli)','Massive refining capacity and demand','Growing offshore and shale output'],
+      cons:['Mature fields in steep decline','Heavy dependence on imports','State-controlled access for foreign firms'],
+      note:"China's national oil companies dominate upstream. Daqing is one of the world's largest waterflood and polymer-EOR projects." },
+    { id:'jp', flag:'🇯🇵', name:'Japan', region:'East Asia', rank:'#20 Asia',
+      model:'Private concessions (limited)', production:'~50 kbpd', reserves:'~40 million bbl', regulator:'METI',
+      stats:[{label:'Licence Model',value:'Concession'},{label:'Royalty',value:'Variable'},{label:'Licence Term',value:'5–10 yr'},{label:'Production',value:'50 kbpd'}],
+      pros:['Advanced technology and engineering','Strong refining and petrochemical sector','Strategic stockpiling capacity'],
+      cons:['Very limited domestic reserves','Heavy import dependence','Tiny upstream footprint'],
+      note:"Japan is one of the world's largest net importers of oil and LNG. Domestic upstream is negligible." },
+    { id:'kr', flag:'🇰🇷', name:'South Korea', region:'East Asia', rank:'#22 Asia',
+      model:'Private concessions (limited)', production:'~25 kbpd', reserves:'~10 million bbl', regulator:'MOTIE',
+      stats:[{label:'Licence Model',value:'Concession'},{label:'Royalty',value:'Variable'},{label:'Licence Term',value:'5–10 yr'},{label:'Production',value:'25 kbpd'}],
+      pros:['World-class refining and petrochemicals','Strategic port and storage infrastructure','Strong LNG import capacity'],
+      cons:['Negligible domestic reserves','Almost total import dependence','Limited upstream opportunity'],
+      note:'South Korea is a major refining hub and LNG importer, but has essentially no commercial upstream production.' },
+    { id:'mn', flag:'🇲🇳', name:'Mongolia', region:'East Asia', rank:'#24 Asia',
+      model:'PSCs with international operators', production:'~20 kbpd', reserves:'~200 million bbl', regulator:'Ministry of Mining and Heavy Industry',
+      stats:[{label:'Licence Model',value:'PSC'},{label:'Royalty',value:'5–10%'},{label:'Licence Term',value:'25 yr'},{label:'Production',value:'20 kbpd'}],
+      pros:['Untapped frontier basins','Growing Chinese demand next door','PSC framework open to foreign operators'],
+      cons:['Landlocked and infrastructure-poor','Harsh climate and short drilling season','Early-stage exploration'],
+      note:"Mongolia's hydrocarbon potential is largely unexplored; development depends on export routes to China." },
+    { id:'id', flag:'🇮🇩', name:'Indonesia', region:'Southeast Asia', rank:'#5 Asia',
+      model:'PSCs (gross-split)', production:'~750 kbpd', reserves:'~2.5 billion bbl', regulator:'SKK Migas',
+      stats:[{label:'Licence Model',value:'PSC'},{label:'Royalty',value:'Split'},{label:'Licence Term',value:'20–30 yr'},{label:'Production',value:'750 kbpd'}],
+      pros:['Large offshore and onshore basins','Established PSC framework','Growing deepwater potential'],
+      cons:['Mature fields in decline','Regulatory complexity','Infrastructure gaps in frontier areas'],
+      note:'Indonesia pioneered the production-sharing contract. SKK Migas oversees upstream activity on behalf of the state.' },
+    { id:'my', flag:'🇲🇾', name:'Malaysia', region:'Southeast Asia', rank:'#6 Asia',
+      model:'PSCs with PETRONAS', production:'~600 kbpd', reserves:'~3.6 billion bbl', regulator:'PETRONAS',
+      stats:[{label:'Licence Model',value:'PSC'},{label:'Royalty',value:'Split'},{label:'Licence Term',value:'20–25 yr'},{label:'Production',value:'600 kbpd'}],
+      pros:['Well-developed offshore basins','Strong national oil company','Established LNG export capacity'],
+      cons:['Mature offshore fields','Rising development costs','Decommissioning wave approaching'],
+      note:"PETRONAS holds exclusive ownership of Malaysia's petroleum resources and awards PSCs to international partners." },
+    { id:'vn', flag:'🇻🇳', name:'Vietnam', region:'Southeast Asia', rank:'#8 Asia',
+      model:'PSCs with PVN', production:'~300 kbpd', reserves:'~1.3 billion bbl', regulator:'PetroVietnam (PVN)',
+      stats:[{label:'Licence Model',value:'PSC'},{label:'Royalty',value:'Split'},{label:'Licence Term',value:'20–25 yr'},{label:'Production',value:'300 kbpd'}],
+      pros:['Offshore production in the Cuu Long basin','Growing gas and LNG ambitions','Open PSC terms'],
+      cons:['South China Sea disputes complicate exploration','Mature field decline','Limited refining capacity'],
+      note:"Vietnam's upstream is concentrated offshore in the Cuu Long and Nam Con Son basins; maritime disputes constrain frontier activity." },
+    { id:'th', flag:'🇹🇭', name:'Thailand', region:'Southeast Asia', rank:'#11 Asia',
+      model:'Concessions + PSCs', production:'~250 kbpd', reserves:'~250 million bbl', regulator:'Department of Mineral Fuels',
+      stats:[{label:'Licence Model',value:'Concession'},{label:'Royalty',value:'Variable'},{label:'Licence Term',value:'20–25 yr'},{label:'Production',value:'250 kbpd'}],
+      pros:['Established Gulf of Thailand production','Strong refining and petrochemical sector','Active bid rounds'],
+      cons:['Small reserve base','Mature fields','Heavy gas import dependence'],
+      note:"Thailand's upstream is dominated by the Gulf of Thailand; the country is a major LNG importer to supplement domestic gas." },
+    { id:'bn', flag:'🇧🇳', name:'Brunei', region:'Southeast Asia', rank:'#14 Asia',
+      model:'Concessions + PSCs', production:'~100 kbpd', reserves:'~1.1 billion bbl', regulator:'Petroleum Unit',
+      stats:[{label:'Licence Model',value:'Concession'},{label:'Royalty',value:'State-set'},{label:'Licence Term',value:'Long-term'},{label:'Production',value:'100 kbpd'}],
+      pros:['Long-established offshore production','Strong LNG export record','Stable regulatory environment'],
+      cons:['Small geographic footprint','Mature fields','High dependence on hydrocarbons for revenue'],
+      note:"Brunei's economy is heavily hydrocarbon-dependent. Shell and local partners have operated offshore fields for decades." },
+    { id:'mm', flag:'🇲🇲', name:'Myanmar', region:'Southeast Asia', rank:'#17 Asia',
+      model:'PSCs with MOGE', production:'~15 kbpd', reserves:'~50 million bbl', regulator:'Myanma Oil and Gas Enterprise (MOGE)',
+      stats:[{label:'Licence Model',value:'PSC'},{label:'Royalty',value:'Split'},{label:'Licence Term',value:'20–30 yr'},{label:'Production',value:'15 kbpd'}],
+      pros:['Frontier offshore blocks','Gas discoveries for export to Thailand','Early-stage exploration upside'],
+      cons:['Political instability and sanctions','Weak infrastructure','Regulatory uncertainty'],
+      note:"Myanmar's upstream is dominated by gas for export. Political instability since 2021 has severely disrupted investment." },
+    { id:'ph', flag:'🇵🇭', name:'Philippines', region:'Southeast Asia', rank:'#23 Asia',
+      model:'PSCs (Service Contract)', production:'~5 kbpd', reserves:'~30 million bbl', regulator:'Department of Energy',
+      stats:[{label:'Licence Model',value:'Service Contract'},{label:'Royalty',value:'Split'},{label:'Licence Term',value:'25 yr'},{label:'Production',value:'5 kbpd'}],
+      pros:['Untapped offshore basins','Reformed service contract framework','Growing LNG import plans'],
+      cons:['Very small current production','South China Sea disputes','Limited infrastructure'],
+      note:'The Philippines has minimal upstream output; the Malampaya gas field has been the main domestic source.' },
+    { id:'in', flag:'🇮🇳', name:'India', region:'South Asia', rank:'#4 Asia',
+      model:'PSCs (New Exploration Licensing Policy)', production:'~650 kbpd', reserves:'~4.5 billion bbl', regulator:'Directorate General of Hydrocarbons',
+      stats:[{label:'Licence Model',value:'PSC'},{label:'Royalty',value:'Split'},{label:'Licence Term',value:'20–25 yr'},{label:'Production',value:'650 kbpd'}],
+      pros:['Large domestic demand and refining capacity','Active exploration in Krishna-Godavari and Rajasthan','Open PSC framework'],
+      cons:['Declining mature fields','Heavy crude import dependence','Regulatory and pricing disputes'],
+      note:"India is one of Asia's fastest-growing oil consumers. Domestic production has struggled to keep pace with demand growth." },
+    { id:'pk', flag:'🇵🇰', name:'Pakistan', region:'South Asia', rank:'#16 Asia',
+      model:'Concessions + PSCs', production:'~80 kbpd', reserves:'~350 million bbl', regulator:'Directorate General of Petroleum Concessions',
+      stats:[{label:'Licence Model',value:'Concession'},{label:'Royalty',value:'Variable'},{label:'Licence Term',value:'25 yr'},{label:'Production',value:'80 kbpd'}],
+      pros:['Established onshore fields in Sindh and Punjab','Growing gas demand','Active licensing rounds'],
+      cons:['Political and economic instability','Security issues in some regions','Circular debt in the energy sector'],
+      note:"Pakistan's upstream is concentrated in the southern Indus Basin; the country is a significant LNG importer." },
+    { id:'bd', flag:'🇧🇩', name:'Bangladesh', region:'South Asia', rank:'#19 Asia',
+      model:'PSCs with Petrobangla', production:'~30 kbpd', reserves:'~30 million bbl', regulator:'Petrobangla',
+      stats:[{label:'Licence Model',value:'PSC'},{label:'Royalty',value:'Split'},{label:'Licence Term',value:'20–25 yr'},{label:'Production',value:'30 kbpd'}],
+      pros:['Growing gas-dominated energy sector','Offshore Bay of Bengal potential','Open PSC terms'],
+      cons:['Limited oil reserves','Infrastructure and gas supply constraints','Offshore exploration is early-stage'],
+      note:'Bangladesh is primarily a gas producer; oil output is small and the country relies heavily on imported LNG.' },
+    { id:'lk', flag:'🇱🇰', name:'Sri Lanka', region:'South Asia', rank:'#25 Asia',
+      model:'PSCs (exploration stage)', production:'~0 kbpd', reserves:'~0 proven', regulator:'Petroleum Development Authority',
+      stats:[{label:'Licence Model',value:'PSC'},{label:'Royalty',value:'Split'},{label:'Licence Term',value:'25 yr'},{label:'Production',value:'0 kbpd'}],
+      pros:['Frontier offshore basins in the Cauvery and Mannar','Strategic Indian Ocean location','New licensing framework'],
+      cons:['No commercial production yet','Exploration is early-stage','Economic and political challenges'],
+      note:'Sri Lanka has no commercial hydrocarbon production but has held exploration licensing rounds for offshore blocks.' },
+    { id:'af', flag:'🇦🇫', name:'Afghanistan', region:'South Asia', rank:'—',
+      model:'PSAs (limited)', production:'~0 kbpd', reserves:'~1.6 billion bbl (est.)', regulator:'Ministry of Mines and Petroleum',
+      stats:[{label:'Licence Model',value:'PSA'},{label:'Royalty',value:'State-set'},{label:'Licence Term',value:'25 yr'},{label:'Production',value:'0 kbpd'}],
+      pros:['Underexplored basins with estimated potential','Amu Darya basin oil and gas','New licensing interest'],
+      cons:['Security and political instability','Very limited infrastructure','No significant current production'],
+      note:"Afghanistan's resource potential remains largely untapped due to decades of conflict and weak infrastructure." },
+    { id:'kz', flag:'🇰🇿', name:'Kazakhstan', region:'Central Asia', rank:'#3 Asia',
+      model:'Concessions + PSAs', production:'~1,900 kbpd', reserves:'~30 billion bbl', regulator:'Ministry of Energy',
+      stats:[{label:'Licence Model',value:'Hybrid'},{label:'Royalty',value:'Negotiated'},{label:'Licence Term',value:'25–40 yr'},{label:'Production',value:'1,900 kbpd'}],
+      pros:['Large Caspian fields (Tengiz, Kashagan)','Established PSA framework for majors','Growing export routes via CPC pipeline'],
+      cons:['Landlocked, dependent on transit countries','Harsh climate and complex reservoirs','Reliance on Russian pipeline routes'],
+      note:'Kazakhstan pioneered production-sharing agreements in the Caspian region, attracting major international investment.' },
+    { id:'tm', flag:'🇹🇲', name:'Turkmenistan', region:'Central Asia', rank:'#12 Asia',
+      model:'State-owned + PSAs', production:'~200 kbpd', reserves:'~600 million bbl', regulator:'State Concern Türkmennebit',
+      stats:[{label:'Licence Model',value:'State'},{label:'Royalty',value:'State-set'},{label:'Licence Term',value:'Long-term'},{label:'Production',value:'200 kbpd'}],
+      pros:['Vast gas reserves and Caspian oil fields','Growing gas exports to China','Strategic location'],
+      cons:['Limited foreign operator access','Opaque regulatory environment','Export dependence on China and Russia'],
+      note:"Turkmenistan is one of the world's largest gas reserve holders; oil production is smaller but growing." },
+    { id:'uz', flag:'🇺🇿', name:'Uzbekistan', region:'Central Asia', rank:'#18 Asia',
+      model:'PSAs with Uzbekneftegaz', production:'~60 kbpd', reserves:'~600 million bbl', regulator:'Uzbekneftegaz',
+      stats:[{label:'Licence Model',value:'PSA'},{label:'Royalty',value:'Negotiated'},{label:'Licence Term',value:'25 yr'},{label:'Production',value:'60 kbpd'}],
+      pros:['Growing gas production','Reform-oriented investment climate','Strategic Central Asian location'],
+      cons:['Landlocked and infrastructure-constrained','Limited oil reserves','State dominance in upstream'],
+      note:'Uzbekistan has opened its upstream to more foreign investment in recent years, but gas dominates the portfolio.' },
+    { id:'kg', flag:'🇰🇬', name:'Kyrgyzstan', region:'Central Asia', rank:'—',
+      model:'Concessions (limited)', production:'~1 kbpd', reserves:'~40 million bbl', regulator:'State Committee for Industry, Energy and Subsoil Use',
+      stats:[{label:'Licence Model',value:'Concession'},{label:'Royalty',value:'Variable'},{label:'Licence Term',value:'20 yr'},{label:'Production',value:'1 kbpd'}],
+      pros:['Small but active onshore fields','Open to foreign investment','Strategic location near China'],
+      cons:['Very small reserves and production','Mountainous terrain raises costs','Limited infrastructure'],
+      note:"Kyrgyzstan's hydrocarbon sector is small and concentrated in the Fergana Valley." },
+    { id:'tj', flag:'🇹🇯', name:'Tajikistan', region:'Central Asia', rank:'—',
+      model:'PSAs (limited)', production:'~0 kbpd', reserves:'~12 million bbl', regulator:'Ministry of Energy and Water Resources',
+      stats:[{label:'Licence Model',value:'PSA'},{label:'Royalty',value:'Variable'},{label:'Licence Term',value:'25 yr'},{label:'Production',value:'0 kbpd'}],
+      pros:['Underexplored sedimentary basins','Small onshore fields','Potential for foreign investment'],
+      cons:['No significant commercial production','Difficult terrain and poor infrastructure','Early-stage exploration'],
+      note:'Tajikistan has small hydrocarbon potential and relies heavily on hydropower and imported fuels.' },
+    { id:'sa', flag:'🇸🇦', name:'Saudi Arabia', region:'Middle East', rank:'#2 Asia',
+      model:'State monopoly (Saudi Aramco)', production:'~9,000 kbpd', reserves:'~267 billion bbl', regulator:'Ministry of Energy',
+      stats:[{label:'Licence Model',value:'State'},{label:'Royalty',value:'State-set'},{label:'Licence Term',value:'Long-term'},{label:'Production',value:'9,000 kbpd'}],
+      pros:['World-class low-cost conventional reservoirs','Single national operator with deep expertise','Massive spare production capacity'],
+      cons:['Very limited foreign operator access','Production decisions tied to national policy','Heavy fiscal dependence on oil'],
+      note:'Saudi Aramco operates almost all upstream activity. Foreign participation is limited to specific service contracts and joint ventures.' },
+    { id:'ae', flag:'🇦🇪', name:'United Arab Emirates', region:'Middle East', rank:'#7 Asia',
+      model:'Concessions + joint ventures', production:'~3,000 kbpd', reserves:'~111 billion bbl', regulator:'Supreme Petroleum Council',
+      stats:[{label:'Licence Model',value:'Concession'},{label:'Royalty',value:'Negotiated'},{label:'Licence Term',value:'30–40 yr'},{label:'Production',value:'3,000 kbpd'}],
+      pros:['Low-cost, long-life conventional reserves','Stable and business-friendly environment','World-class export and refining infrastructure'],
+      cons:['Concentrated in a few large fields','Reservoir pressure maintenance is capital-intensive','Fiscal reliance on hydrocarbons'],
+      note:'ADNOC awards long-term concessions to international partners while retaining majority state control.' },
+    { id:'iq', flag:'🇮🇶', name:'Iraq', region:'Middle East', rank:'#6 Asia',
+      model:'Technical service contracts', production:'~4,400 kbpd', reserves:'~145 billion bbl', regulator:'Ministry of Oil',
+      stats:[{label:'Licence Model',value:'TSC'},{label:'Royalty',value:'State-set'},{label:'Licence Term',value:'20 yr'},{label:'Production',value:'4,400 kbpd'}],
+      pros:['Very large, low-cost southern fields','Growing production capacity','Strategic export routes via the Gulf'],
+      cons:['Security and political instability','Infrastructure bottlenecks and flaring','Dependence on southern export terminals'],
+      note:'Iraq uses technical service contracts rather than production-sharing agreements, paying operators a fixed fee per barrel.' },
+    { id:'ir', flag:'🇮🇷', name:'Iran', region:'Middle East', rank:'#8 Asia',
+      model:'State-owned (NIOC) + buy-back contracts', production:'~3,200 kbpd', reserves:'~209 billion bbl', regulator:'Ministry of Petroleum',
+      stats:[{label:'Licence Model',value:'State'},{label:'Royalty',value:'State-set'},{label:'Licence Term',value:'5–20 yr'},{label:'Production',value:'3,200 kbpd'}],
+      pros:['Second-largest proven reserves globally','Low-cost onshore conventional fields','Established refining and export terminals'],
+      cons:['Sanctions severely limit investment and exports','Aging fields need enhanced recovery investment','Limited access to foreign technology'],
+      note:'International sanctions have repeatedly restricted foreign participation and technology transfer.' },
+    { id:'kw', flag:'🇰🇼', name:'Kuwait', region:'Middle East', rank:'#9 Asia',
+      model:'State-owned (KPC) + service contracts', production:'~2,700 kbpd', reserves:'~101 billion bbl', regulator:'Ministry of Oil',
+      stats:[{label:'Licence Model',value:'State'},{label:'Royalty',value:'State-set'},{label:'Licence Term',value:'Long-term'},{label:'Production',value:'2,700 kbpd'}],
+      pros:['Large, low-cost Burgan field','Stable constitutional monarchy','Strong refining and export capacity'],
+      cons:['Limited foreign operator participation','Heavy oil development needs new technology','Fiscal reliance on oil'],
+      note:'Kuwait Petroleum Corporation controls upstream operations; international oil companies participate mainly as service providers.' },
+    { id:'om', flag:'🇴🇲', name:'Oman', region:'Middle East', rank:'#10 Asia',
+      model:'PSAs with international operators', production:'~1,000 kbpd', reserves:'~5.4 billion bbl', regulator:'Ministry of Energy and Minerals',
+      stats:[{label:'Licence Model',value:'PSA'},{label:'Royalty',value:'Negotiated'},{label:'Licence Term',value:'20–30 yr'},{label:'Production',value:'1,000 kbpd'}],
+      pros:['Established EOR programmes (steam, polymer)','Stable and investor-friendly environment','Active exploration and appraisal'],
+      cons:['Complex and mature fields','Dependence on enhanced recovery','Limited new giant discoveries'],
+      note:'Oman is a regional leader in EOR, using steam and polymer flooding to sustain output from mature fields.' },
+    { id:'qa', flag:'🇶🇦', name:'Qatar', region:'Middle East', rank:'#13 Asia',
+      model:'State-owned (QatarEnergy)', production:'~600 kbpd', reserves:'~25 billion bbl', regulator:'Ministry of Energy',
+      stats:[{label:'Licence Model',value:'State'},{label:'Royalty',value:'State-set'},{label:'Licence Term',value:'Long-term'},{label:'Production',value:'600 kbpd'}],
+      pros:['World-class gas reserves (North Field)','Strong fiscal position','Growing LNG export capacity'],
+      cons:['Small oil reserves relative to gas','State dominance limits foreign access','Energy transition risk for gas'],
+      note:"Qatar is one of the world's largest LNG exporters; oil output is significant but secondary to gas." },
+    { id:'ye', flag:'🇾🇪', name:'Yemen', region:'Middle East', rank:'#21 Asia',
+      model:'PSAs (suspended)', production:'~20 kbpd', reserves:'~3 billion bbl', regulator:'Ministry of Oil and Minerals',
+      stats:[{label:'Licence Model',value:'PSA'},{label:'Royalty',value:'Split'},{label:'Licence Term',value:'20 yr'},{label:'Production',value:'20 kbpd'}],
+      pros:['Block 18 and other established fields','Established export infrastructure (pre-conflict)','Potential for post-conflict recovery'],
+      cons:['Ongoing civil conflict','Severely damaged infrastructure','Production collapsed from pre-2015 levels'],
+      note:"Yemen's hydrocarbon sector has been devastated by civil war; pre-conflict production was around 400 kbpd." }
+];
+
+/* =========================================================
+   COUNTRY UI
+   ========================================================= */
+(function countryUI() {
+    const listEl = document.getElementById('countryList');
+    const panelEl = document.getElementById('licensePanel');
+    const searchEl = document.getElementById('countrySearch');
+    const regionEl = document.getElementById('regionFilter');
+    let activeId = 'sa';
+    let filtered = COUNTRIES.slice();
+
+    function renderList() {
+        listEl.innerHTML = '';
+        if (filtered.length === 0) {
+            listEl.innerHTML = '<div class="lp-empty" style="padding:24px;">No matching countries</div>';
+            return;
+        }
+        filtered.forEach(c => {
+            const btn = document.createElement('button');
+            btn.className = 'country-btn';
+            btn.type = 'button';
+            btn.setAttribute('role', 'tab');
+            btn.setAttribute('aria-selected', c.id === activeId ? 'true' : 'false');
+            btn.dataset.id = c.id;
+            btn.innerHTML =
+                `<span class="flag">${c.flag}</span>` +
+                `<span class="cname">${c.name}<small>${c.region}</small></span>` +
+                `<span class="crank">${c.rank}</span>`;
+            btn.addEventListener('click', () => select(c.id));
+            btn.addEventListener('keydown', e => {
+                if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    const idx = filtered.findIndex(x => x.id === activeId);
+                    const next = filtered[(idx + 1) % filtered.length];
+                    if (next) select(next.id, true);
+                } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    const idx = filtered.findIndex(x => x.id === activeId);
+                    const prev = filtered[(idx - 1 + filtered.length) % filtered.length];
+                    if (prev) select(prev.id, true);
+                }
+            });
+            listEl.appendChild(btn);
+        });
+    }
+
+    function select(id, focusBtn) {
+        activeId = id;
+        const c = COUNTRIES.find(x => x.id === id);
+        if (!c) return;
+        document.querySelectorAll('.country-btn').forEach(b => {
+            b.setAttribute('aria-selected', b.dataset.id === id ? 'true' : 'false');
+        });
+        panelEl.innerHTML = `
+            <div class="lp-head">
+                <div class="lp-flag">${c.flag}</div>
+                <div><h3>${c.name}</h3><span class="lp-sub">${c.region} · ${c.rank}</span></div>
+            </div>
+            <div class="lp-stats">
+                ${c.stats.map(s => `<div class="lp-stat"><span>${s.label}</span><b>${s.value}</b></div>`).join('')}
+            </div>
+            <p class="lp-facts">
+                <b>Licence model:</b> ${c.model}<br>
+                <b>Regulator:</b> ${c.regulator} &nbsp;·&nbsp;
+                <b>Reserves:</b> ${c.reserves}
+            </p>
+            <div class="lp-grid">
+                <div><h4>Advantages</h4><ul>${c.pros.map(p => `<li>${p}</li>`).join('')}</ul></div>
+                <div><h4>Challenges</h4><ul>${c.cons.map(x => `<li>${x}</li>`).join('')}</ul></div>
+            </div>
+            <div class="lp-note"><b>Jurisdiction note:</b> ${c.note}</div>
+        `;
+        if (focusBtn) {
+            const btn = document.querySelector(`.country-btn[data-id="${id}"]`);
+            if (btn) btn.focus();
+        }
+    }
+
+    function applyFilter() {
+        const q = searchEl.value.trim().toLowerCase();
+        const region = regionEl.value;
+        filtered = COUNTRIES.filter(c => {
+            const matchQ = !q || c.name.toLowerCase().includes(q) || c.region.toLowerCase().includes(q);
+            const matchR = region === 'all' || c.region === region;
+            return matchQ && matchR;
+        });
+        if (!filtered.some(c => c.id === activeId) && filtered.length) activeId = filtered[0].id;
+        renderList();
+        if (filtered.length) select(activeId);
+        else panelEl.innerHTML = '<div class="lp-empty">No countries match your search.</div>';
+    }
+
+    searchEl.addEventListener('input', applyFilter);
+    regionEl.addEventListener('change', applyFilter);
+    filtered = COUNTRIES.slice();
+    renderList();
+    select(activeId);
+})();
+
+/* =========================================================
+   LIVE FIELD DATA
+   ========================================================= */
+const FIELD_TYPES = {
+    onshore:  { label: 'Onshore',   color: '#d4a017' },
+    offshore: { label: 'Offshore',  color: '#4da6ff' },
+    deepwater:{ label: 'Deepwater', color: '#2f8fbf' },
+    shale:    { label: 'Shale',     color: '#a67c2e' },
+    sands:    { label: 'Oil Sands', color: '#8b4513' },
+    frontier: { label: 'Frontier',  color: '#c47fd6' }
+};
+
+const FIELDS = [
+    { name:'Ghawar',              icon:'🛢️', type:'onshore',   country:'Saudi Arabia',  flag:'🇸🇦', depth:2200, base:4200, status:'online' },
+    { name:'Daqing',              icon:'🏞️', type:'onshore',   country:'China',         flag:'🇨🇳', depth:1100, base:1200, status:'online' },
+    { name:'Rumaila',             icon:'🛢️', type:'onshore',   country:'Iraq',          flag:'🇮🇶', depth:2100, base:1400, status:'online' },
+    { name:'Upper Zakum',         icon:'🌊', type:'offshore',  country:'UAE',           flag:'🇦🇪', depth:2900, base:1100, status:'online' },
+    { name:'Burgan',              icon:'🛢️', type:'onshore',   country:'Kuwait',        flag:'🇰🇼', depth:1800, base:1600, status:'online' },
+    { name:'Tengiz',              icon:'🏞️', type:'onshore',   country:'Kazakhstan',    flag:'🇰🇿', depth:3800, base:1500, status:'online' },
+    { name:'Kashagan',            icon:'🌊', type:'offshore',  country:'Kazakhstan',    flag:'🇰🇿', depth:4200, base:1000, status:'maintenance' },
+    { name:'Búzios',              icon:'🚢', type:'deepwater', country:'Brazil',        flag:'🇧🇷', depth:5200, base:2100, status:'online' },
+    { name:'Minas',               icon:'🏞️', type:'onshore',   country:'Indonesia',     flag:'🇮🇩', depth:800,  base:350,  status:'online' },
+    { name:'Banyu Urip',          icon:'🛢️', type:'onshore',   country:'Indonesia',     flag:'🇮🇩', depth:1500, base:400,  status:'online' },
+    { name:'Tap Oil (Gulf)',      icon:'🌊', type:'offshore',  country:'Thailand',      flag:'🇹🇭', depth:1600, base:250,  status:'online' },
+    { name:'Malampaya',           icon:'🌊', type:'offshore',  country:'Philippines',   flag:'🇵🇭', depth:2900, base:80,   status:'maintenance' },
+    { name:'Cuu Long',            icon:'🌊', type:'offshore',  country:'Vietnam',       flag:'🇻🇳', depth:1900, base:280,  status:'online' },
+    { name:'Krishna-Godavari',    icon:'🌊', type:'offshore',  country:'India',         flag:'🇮🇳', depth:2400, base:320,  status:'online' },
+    { name:'Rajasthan Block',     icon:'🏜️', type:'onshore',   country:'India',         flag:'🇮🇳', depth:1200, base:180,  status:'online' },
+    { name:'Bach Ho',             icon:'🌊', type:'offshore',  country:'Vietnam',       flag:'🇻🇳', depth:2200, base:250,  status:'maintenance' },
+    { name:'Daqing Shale',        icon:'🪨', type:'shale',     country:'China',         flag:'🇨🇳', depth:2400, base:300,  status:'drilling' },
+    { name:'Sichuan Shale',       icon:'🪨', type:'shale',     country:'China',         flag:'🇨🇳', depth:2800, base:260,  status:'drilling' },
+    { name:'Athabasca Asia JV',   icon:'🏝️', type:'sands',     country:'China',         flag:'🇨🇳', depth:500,  base:140,  status:'online' },
+    { name:'Arctic Frontier Beta',icon:'❄️', type:'frontier',  country:'Russia (Asia)', flag:'🇷🇺', depth:3600, base:300,  status:'drilling' },
+    { name:'Amu Darya',           icon:'🏞️', type:'onshore',   country:'Turkmenistan',  flag:'🇹🇲', depth:2100, base:200,  status:'online' },
+    { name:'Block 18 Yemen',      icon:'🛢️', type:'onshore',   country:'Yemen',         flag:'🇾🇪', depth:1900, base:60,   status:'maintenance' }
+];
+
+let liveData = [];
+let activeFilter = 'all';
+let refreshTimer = null;
+
+const STATUS_LABEL = {
+    online:      { label: 'Online',      cls: 'badge-online' },
+    maintenance: { label: 'Maintenance', cls: 'badge-maintenance' },
+    drilling:    { label: 'Drilling',    cls: 'badge-drilling' },
+    suspended:   { label: 'Suspended',   cls: 'badge-suspended' }
+};
+
+function initLive() {
+    liveData = FIELDS.map(f => ({
+        ...f,
+        output: Math.round(f.base * (0.85 + Math.random() * 0.3)),
+        trend: (Math.random() - 0.5) * 8,
+        uptime: 82 + Math.random() * 17
+    }));
+    renderTable();
+    renderAnalytics();
+    updateLastTime();
+}
+
+function fmtNum(n) { return Math.round(n).toLocaleString('en-US'); }
+
+function renderTable() {
+    const body = document.getElementById('fieldBody');
+    const rows = liveData.filter(f => activeFilter === 'all' || f.type === activeFilter);
+    body.innerHTML = rows.map(f => {
+        const t = FIELD_TYPES[f.type];
+        const st = STATUS_LABEL[f.status] || STATUS_LABEL.online;
+        const trendCls = f.trend > 0.5 ? 'trend-up' : f.trend < -0.5 ? 'trend-down' : 'trend-flat';
+        const trendTxt = (f.trend > 0 ? '+' : '') + f.trend.toFixed(1) + '%';
+        const trendIcon = f.trend > 0.5 ? '▲' : f.trend < -0.5 ? '▼' : '■';
+        return `
+            <tr>
+                <td><span class="field-name"><span class="fic">${f.icon}</span>${f.name}</span></td>
+                <td><span style="color:${t.color};font-size:12px;">${t.label}</span></td>
+                <td>${f.flag} ${f.country}</td>
+                <td style="font-family:monospace;color:#9a9a9a;">${fmtNum(f.depth)} m</td>
+                <td style="font-family:monospace;color:#ffcc00;font-weight:600;">${fmtNum(f.output)} <span style="color:#777;font-size:10px;">bpd</span></td>
+                <td class="${trendCls}">${trendIcon} ${trendTxt}</td>
+                <td><span class="mini-bar"><span style="width:${f.uptime}%"></span></span> <span style="font-family:monospace;font-size:11px;color:#9a9a9a;">${f.uptime.toFixed(0)}%</span></td>
+                <td><span class="badge ${st.cls}">${st.label}</span></td>
+            </tr>
+        `;
+    }).join('');
+    const totalOut = rows.reduce((s, f) => s + (f.status === 'online' ? f.output : 0), 0);
+    const online = rows.filter(f => f.status === 'online').length;
+    const avgUptime = rows.length ? rows.reduce((s, f) => s + f.uptime, 0) / rows.length : 0;
+    document.getElementById('tableFoot').innerHTML =
+        `<span>Showing <b>${rows.length}</b> fields</span>` +
+        `<span>Online: <b>${online}</b></span>` +
+        `<span>Aggregate output: <b>${fmtNum(totalOut)} bpd</b></span>` +
+        `<span>Avg uptime: <b>${avgUptime.toFixed(1)}%</b></span>`;
+}
+
+function renderAnalytics() {
+    const byCountry = {};
+    liveData.forEach(f => {
+        if (f.status === 'online') byCountry[f.country] = (byCountry[f.country] || 0) + f.output;
+    });
+    const entries = Object.entries(byCountry).sort((a, b) => b[1] - a[1]).slice(0, 9);
+    const max = Math.max(...entries.map(e => e[1]), 1);
+    const chart = document.getElementById('countryChart');
+    chart.innerHTML = entries.map(([country, val], i) => {
+        const flag = (FIELDS.find(f => f.country === country) || {}).flag || '';
+        const pct = (val / max) * 100;
+        const hue = 170 - i * 12;
+        return `
+            <div class="bar-row">
+                <span class="label">${flag} ${country}</span>
+                <span class="track"><span data-w="${pct}" style="background:linear-gradient(90deg,#0a6b5c,hsl(${hue},70%,52%));"></span></span>
+                <span class="val">${fmtNum(val)}</span>
+            </div>
+        `;
+    }).join('');
+    requestAnimationFrame(() => {
+        chart.querySelectorAll('.track span[data-w]').forEach(el => { el.style.width = el.dataset.w + '%'; });
+    });
+    const online = liveData.filter(f => f.status === 'online').length;
+    const maint = liveData.filter(f => f.status === 'maintenance').length;
+    const drill = liveData.filter(f => f.status === 'drilling').length;
+    const total = liveData.length;
+    const C = 2 * Math.PI * 62;
+    let offset = 0;
+    [{el:'donutOnline',val:online},{el:'donutMaint',val:maint},{el:'donutDrill',val:drill}].forEach(s => {
+        const el = document.getElementById(s.el);
+        const len = (s.val / total) * C;
+        el.setAttribute('stroke-dasharray', `${len} ${C - len}`);
+        el.setAttribute('stroke-dashoffset', -offset);
+        offset += len;
+    });
+    document.getElementById('donutTotal').textContent = total;
+    document.getElementById('legOnline').textContent = online;
+    document.getElementById('legMaint').textContent = maint;
+    document.getElementById('legDrill').textContent = drill;
+}
+
+function updateLastTime() {
+    const el = document.getElementById('lastUpdate');
+    if (el) el.textContent = 'updated ' + new Date().toLocaleTimeString('en-US', { hour12: false });
+}
+
+function refreshLive() {
+    liveData.forEach(f => {
+        if (f.status === 'online') {
+            const delta = (Math.random() - 0.5) * f.base * 0.04;
+            f.output = Math.max(20, Math.round(f.output + delta));
+            f.trend = delta / f.base * 100 + (Math.random() - 0.5) * 2;
+            f.uptime = Math.min(99.9, Math.max(70, f.uptime + (Math.random() - 0.5) * 1.2));
+        } else if (f.status === 'drilling') {
+            f.trend = (Math.random() - 0.5) * 3;
+            f.uptime = Math.min(99.9, Math.max(50, f.uptime + (Math.random() - 0.5) * 1.5));
+        } else {
+            f.trend = (Math.random() - 0.5) * 1;
+        }
+    });
+    renderTable();
+    renderAnalytics();
+    updateLastTime();
+}
+
+document.getElementById('refreshBtn').addEventListener('click', refreshLive);
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeFilter = btn.dataset.filter;
+        renderTable();
+    });
+});
+
+initLive();
+refreshTimer = setInterval(refreshLive, 6500);
+document.addEventListener('visibilitychange', () => {
+    clearInterval(refreshTimer);
+    if (!document.hidden) refreshTimer = setInterval(refreshLive, 6500);
+});
+
+/* =========================================================
+   OIL MINE ULTRA
+   ========================================================= */
+const RES = {
+    light: { name:'Light Sweet Crude', icon:'🛢️', base:120, diff:1.00, api:[35,45], sulfur:[0.10,0.50], depth:1500, desc:'High-value, low-sulfur crude. Flows easily and refines cheaply.' },
+    heavy: { name:'Heavy Sour Crude',  icon:'⚫', base:115, diff:1.25, api:[15,25], sulfur:[2.50,4.50], depth:900,  desc:'Thick and sulfur-rich. Needs upgrading before refining.' },
+    shale: { name:'Shale / Tight Oil', icon:'🪨', base:110, diff:1.70, api:[38,50], sulfur:[0.05,0.40], depth:2800, desc:'Locked in low-permeability rock. Requires hydraulic fracturing.' },
+    tar:   { name:'Tar Sands Bitumen', icon:'🏝️', base:75,  diff:1.55, api:[8,14],  sulfur:[4.00,6.00], depth:400,  desc:'Semi-solid bitumen. Mined by surface methods and diluted to flow.' },
+    deep:  { name:'Offshore Deepwater',icon:'🌊', base:230, diff:2.10, api:[28,38], sulfur:[0.50,1.50], depth:4200, desc:'Huge reserves under kilometres of water. High risk, high reward.' },
+    bio:   { name:'Bio / Synthetic Oil',icon:'🌱',base:80,  diff:0.85, api:[20,35], sulfur:[0.00,0.05], depth:200,  desc:'Renewable or synthesised hydrocarbon. Near-zero sulfur output.' }
+};
+const RES_ORDER = ['light','heavy','shale','tar','deep','bio'];
+
+let mineSelected = 'light';
+let totalBarrels = 0;
+let mineBusy = false;
+
+const depthEl = document.getElementById('depth');
+const pressureEl = document.getElementById('pressure');
+const techEl = document.getElementById('tech');
+const depthVal = document.getElementById('depth-val');
+const pressureVal = document.getElementById('pressure-val');
+const techVal = document.getElementById('tech-val');
+const depthHint = document.getElementById('depth-hint');
+const pressureHint = document.getElementById('pressure-hint');
+const progressBar = document.getElementById('progressBar');
+const derrick = document.getElementById('derrick');
+const rigScene = document.getElementById('rigScene');
+const logEl = document.getElementById('log');
+const tankFill = document.getElementById('tankFill');
+const tankLabel = document.getElementById('tankLabel');
+
+const rand = (a, b) => a + Math.random() * (b - a);
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const optimalPressure = d => 8 + d / 55;
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+/* Build reservoir cards */
+const resGrid = document.getElementById('resGrid');
+RES_ORDER.forEach(id => {
+    const r = RES[id];
+    const card = document.createElement('div');
+    card.className = 'res-card' + (id === mineSelected ? ' active' : '');
+    card.dataset.id = id;
+    card.innerHTML = `
+        <h4>${r.icon} ${r.name}</h4>
+        <p>${r.desc}</p>
+        <span class="tag">DIFF ${r.diff.toFixed(2)}</span>
+    `;
+    card.addEventListener('click', () => selectReservoir(id, true));
+    resGrid.appendChild(card);
+});
+
+function selectReservoir(id, autoDepth) {
+    mineSelected = id;
+    const r = RES[id];
+    document.querySelectorAll('.res-card').forEach(c => {
+        c.classList.toggle('active', c.dataset.id === id);
+    });
+    document.getElementById('sel-icon').textContent   = r.icon;
+    document.getElementById('sel-name').textContent   = r.name;
+    document.getElementById('sel-depth').textContent  = fmtNum(r.depth) + ' m';
+    document.getElementById('sel-diff').textContent   = r.diff.toFixed(2);
+    document.getElementById('sel-api').textContent    = r.api[0] + '–' + r.api[1];
+    document.getElementById('sel-sulfur').textContent = r.sulfur[0].toFixed(2) + '%–' + r.sulfur[1].toFixed(2) + '%';
+    if (autoDepth) {
+        depthEl.value = r.depth;
+        pressureEl.value = Math.round(optimalPressure(r.depth));
+    }
+    updateMineLabels();
+}
+
+function updateMineLabels() {
+    const d = +depthEl.value, p = +pressureEl.value, t = +techEl.value;
+    const opt = optimalPressure(d);
+    depthVal.textContent = fmtNum(d) + ' m';
+    pressureVal.textContent = p + ' MPa';
+    techVal.textContent = t + ' / 10';
+    depthHint.textContent = `Target for this field: ${fmtNum(RES[mineSelected].depth)} m`;
+    if (p > opt * 1.6) {
+        pressureHint.textContent = `Optimal ≈ ${opt.toFixed(0)} MPa  ⚠ OVERPRESSURE — blowout risk!`;
+        pressureHint.style.color = '#ff5c5c';
+    } else if (p < opt * 0.5) {
+        pressureHint.textContent = `Optimal ≈ ${opt.toFixed(0)} MPa  ⚠ under-pressured — weak flow`;
+        pressureHint.style.color = '#ffb347';
+    } else {
+        pressureHint.textContent = `Optimal ≈ ${opt.toFixed(0)} MPa for current depth`;
+        pressureHint.style.color = '#777';
+    }
+}
+
+depthEl.addEventListener('input', updateMineLabels);
+pressureEl.addEventListener('input', updateMineLabels);
+techEl.addEventListener('input', updateMineLabels);
+
+function computeMine(id, depth, pressure, tech) {
+    const r = RES[id];
+    const depthMatch = 1 - Math.min(1, Math.abs(depth - r.depth) / r.depth);
+    const depthEff = 0.30 + 0.70 * depthMatch;
+    const optP = optimalPressure(depth);
+    const pRatio = pressure / optP;
+    const pDelta = Math.abs(pressure - optP) / optP;
+    const pEff = Math.max(0.15, 1 - pDelta * 1.10);
+    const techEff = 0.40 + tech * 0.06;
+    const diffPenalty = 1 / Math.sqrt(r.diff);
+    let blowChance = 0;
+    if (pRatio > 1.35) blowChance = Math.min(0.55, (pRatio - 1.35) * 1.2);
+    if (pRatio > 2.20) blowChance = 1;
+    if (tech < 3) blowChance += 0.10;
+    blowChance = clamp(blowChance, 0, 1);
+    const blowout = Math.random() < blowChance;
+    let barrels = r.base * depthEff * pEff * techEff * diffPenalty * rand(0.85, 1.15);
+    if (blowout) barrels = 0;
+    barrels = Math.max(0, barrels);
+    const api = rand(r.api[0], r.api[1]);
+    const sulfur = rand(r.sulfur[0], r.sulfur[1]);
+    let price = 62 + (api - 25) * 1.4 - sulfur * 7;
+    price = Math.max(12, price);
+    const value = barrels * price;
+    let grade;
+    if (api >= 35 && sulfur < 0.5) grade = 'Premium Sweet';
+    else if (api >= 30) grade = 'Light';
+    else if (api >= 22) grade = 'Medium';
+    else if (api >= 15) grade = 'Heavy';
+    else grade = 'Extra Heavy';
+    return { id, name: r.name, icon: r.icon, barrels, api, sulfur, price, value, grade, blowout };
+}
+
+function startDrilling() {
+    derrick.classList.add('drilling');
+    rigScene.classList.add('drilling');
+    document.getElementById('sceneCaption').textContent = 'ACTIVE DERRICK — DRILLING IN PROGRESS';
+}
+function stopDrilling() {
+    derrick.classList.remove('drilling');
+    rigScene.classList.remove('drilling');
+    document.getElementById('sceneCaption').textContent = 'ACTIVE DERRICK — AWAITING EXTRACTION ORDER';
+}
+function animateProgress() {
+    return new Promise(resolve => {
+        progressBar.style.width = '0%';
+        let p = 0;
+        const iv = setInterval(() => {
+            p += 4 + Math.random() * 7;
+            if (p >= 100) {
+                p = 100; clearInterval(iv);
+                progressBar.style.width = '100%';
+                setTimeout(resolve, 220);
+            } else progressBar.style.width = p + '%';
+        }, 45);
+    });
+}
+
+async function doMine(id, opts) {
+    startDrilling();
+    await animateProgress();
+    stopDrilling();
+    const result = computeMine(id, opts.depth, opts.pressure, opts.tech);
+    applyMineResult(result);
+    return result;
+}
+
+function applyMineResult(res) {
+    totalBarrels += res.barrels;
+    document.getElementById('r-name').textContent   = res.icon + ' ' + res.name;
+    document.getElementById('r-yield').textContent  = fmtNum(res.barrels) + ' bbl';
+    document.getElementById('r-api').textContent    = res.api.toFixed(1) + ' °API';
+    document.getElementById('r-sulfur').textContent = res.sulfur.toFixed(2) + ' %';
+    document.getElementById('r-grade').textContent  = res.grade;
+    document.getElementById('r-value').textContent  = '$' + fmtNum(res.value);
+    const yieldEl = document.getElementById('r-yield');
+    const statusEl = document.getElementById('r-status');
+    if (res.blowout) {
+        yieldEl.className = 'bad';
+        statusEl.textContent = '💥 BLOWOUT — WELL LOST';
+        statusEl.className = 'bad';
+    } else {
+        yieldEl.className = 'win';
+        statusEl.textContent = '✅ Extraction successful';
+        statusEl.className = 'win';
+    }
+    updateTank();
+    const time = new Date().toLocaleTimeString('en-US', { hour12: false });
+    const entry = document.createElement('div');
+    entry.className = 'log-entry ' + (res.blowout ? 'bad' : 'ok');
+    if (res.blowout) {
+        entry.innerHTML = `<span class="t">[${time}]</span> ${res.icon} <b>${res.name}</b> — BLOWOUT! Well destroyed, 0 bbl recovered.`;
+    } else {
+        entry.innerHTML = `<span class="t">[${time}]</span> ${res.icon} <b>${res.name}</b> — <b>${fmtNum(res.barrels)} bbl</b> · ${res.api.toFixed(1)} °API · ${res.sulfur.toFixed(2)}% S · $${fmtNum(res.value)}`;
+    }
+    const empty = logEl.querySelector('.log-empty');
+    if (empty) empty.remove();
+    logEl.prepend(entry);
+}
+
+function updateTank() {
+    const capacity = 5000;
+    const pct = clamp((totalBarrels / capacity) * 100, 0, 100);
+    tankFill.style.height = pct + '%';
+    tankLabel.textContent = fmtNum(totalBarrels) + ' BBL';
+}
+
+function setMineButtons(state) {
+    document.getElementById('mineBtn').disabled = state;
+    document.getElementById('allBtn').disabled = state;
+    document.getElementById('tuneBtn').disabled = state;
+}
+
+function currentOpts() {
+    return { depth: +depthEl.value, pressure: +pressureEl.value, tech: +techEl.value };
+}
+
+document.getElementById('mineBtn').addEventListener('click', async () => {
+    if (mineBusy) return;
+    mineBusy = true; setMineButtons(true);
+    await doMine(mineSelected, currentOpts());
+    mineBusy = false; setMineButtons(false);
+});
+
+document.getElementById('tuneBtn').addEventListener('click', () => {
+    if (mineBusy) return;
+    const r = RES[mineSelected];
+    depthEl.value = r.depth;
+    pressureEl.value = Math.round(optimalPressure(r.depth));
+    updateMineLabels();
+});
+
+document.getElementById('allBtn').addEventListener('click', async () => {
+    if (mineBusy) return;
+    mineBusy = true; setMineButtons(true);
+    const tech = +techEl.value;
+    let summaryBarrels = 0, summaryValue = 0, best = null;
+    for (const id of RES_ORDER) {
+        const r = RES[id];
+        const depth = r.depth;
+        const pressure = Math.round(optimalPressure(depth));
+        selectReservoir(id, false);
+        depthEl.value = depth;
+        pressureEl.value = pressure;
+        updateMineLabels();
+        await sleep(200);
+        const result = await doMine(id, { depth, pressure, tech });
+        summaryBarrels += result.barrels;
+        summaryValue += result.value;
+        if (!best || result.barrels > best.barrels) best = result;
+        await sleep(240);
+    }
+    const time = new Date().toLocaleTimeString('en-US', { hour12: false });
+    const entry = document.createElement('div');
+    entry.className = 'log-entry ok';
+    entry.innerHTML = `<span class="t">[${time}]</span> 🌐 <b>GLOBAL SWEEP COMPLETE</b> — 6 fields · <b>${fmtNum(summaryBarrels)} bbl</b> · $${fmtNum(summaryValue)} · best: <b>${best.icon} ${best.name}</b>`;
+    logEl.prepend(entry);
+    mineBusy = false; setMineButtons(false);
+});
+
+document.getElementById('clearLog').addEventListener('click', () => {
+    if (mineBusy) return;
+    logEl.innerHTML = '<div class="log-empty">No extraction records yet. Select a reservoir and start mining.</div>';
+    totalBarrels = 0;
+    updateTank();
+});
+
+/* init mine */
+selectReservoir('light', true);
+updateTank();
+
+/* =========================================================
+   W50 REGISTRY
+   ========================================================= */
+const W50_MODELS = [
+    {
+        icon: '🖨️',
+        name: 'BCN3D Epsilon W50 3D Printer',
+        category: 'Industrial 3D Printer',
+        dims: { x: 530, y: 690, z: 900 },
+        raw: '530 × 690 × 900 mm (20.9" × 27.2" × 35.4")'
+    },
+    {
+        icon: '🖥️',
+        name: 'InWin W50 PC Case',
+        category: 'PC Chassis',
+        dims: { x: 522, y: 278, z: 502 },
+        raw: '522 × 278 × 502 mm (20.5" × 10.9" × 19.7")'
+    },
+    {
+        icon: '📷',
+        name: 'Sony Cyber-shot DSC-W50',
+        category: 'Compact Digital Camera',
+        dims: { x: 88.9, y: 57.1, z: 22.9 },
+        raw: '88.9 × 57.1 × 22.9 mm'
+    },
+    {
+        icon: '🚜',
+        name: 'New Holland W 50 Wheel Loader',
+        category: 'Construction Machinery',
+        dims: { x: 5040, y: 1900, z: 2630 },
+        raw: 'Transport: 5.04 m × 1.9 m × 2.63 m'
+    },
+    {
+        icon: '📱',
+        name: 'Oukitel WP50 Smartphone',
+        category: 'Rugged Smartphone',
+        dims: { x: 172.2, y: 80, z: 12.4 },
+        raw: '172.2 × 80 × 12.4 mm'
+    },
+    {
+        icon: '📱',
+        name: 'QMobile Noir W50 Smartphone',
+        category: 'Budget Smartphone',
+        dims: { x: 68, y: 133, z: 9 },
+        raw: '68 × 133 × 9 mm'
+    }
+];
+
+/* Compute volumes in mm³, then log-scale bar 0–100 */
+const w50Data = W50_MODELS.map(m => {
+    const volMm3 = m.dims.x * m.dims.y * m.dims.z;
+    const volL = volMm3 / 1e6;
+    return { ...m, volMm3, volL };
+});
+const minLog = Math.log10(Math.min(...w50Data.map(d => d.volMm3)));
+const maxLog = Math.log10(Math.max(...w50Data.map(d => d.volMm3)));
+
+function volFormat(mm3) {
+    const L = mm3 / 1e6;
+    if (L >= 1000) return (L / 1000).toFixed(1) + ' m³';
+    if (L >= 1) return L.toFixed(1) + ' L';
+    return L.toFixed(3) + ' L';
+}
+
+const w50Grid = document.getElementById('w50Grid');
+w50Data.forEach(m => {
+    const barPct = ((Math.log10(m.volMm3) - minLog) / (maxLog - minLog)) * 100;
+    const card = document.createElement('article');
+    card.className = 'w50-card';
+    card.innerHTML = `
+        <div class="w50-icon">${m.icon}</div>
+        <h3>${m.name}</h3>
+        <div class="w50-cat">${m.category}</div>
+        <div class="w50-dims">
+            <div class="w50-dim"><span>X</span><b>${fmtNum(m.dims.x)}</b></div>
+            <div class="w50-dim"><span>Y</span><b>${fmtNum(m.dims.y)}</b></div>
+            <div class="w50-dim"><span>Z</span><b>${fmtNum(m.dims.z)}</b></div>
+        </div>
+        <div class="w50-vol">Raw: ${m.raw}</div>
+        <div class="w50-vol">Volume: <b>${volFormat(m.volMm3)}</b></div>
+        <div class="w50-bar-wrap"><div class="w50-bar" data-target="${barPct}"></div></div>
+        <div class="w50-scale"><span>log scale</span><span>${barPct.toFixed(0)}%</span></div>
+    `;
+    w50Grid.appendChild(card);
+});
+
+/* Animate W50 bars when visible */
+(function w50Reveal() {
+    const bars = document.querySelectorAll('.w50-bar');
+    if (!('IntersectionObserver' in window)) {
+        bars.forEach(b => { b.style.width = b.dataset.target + '%'; });
+        return;
+    }
+    const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                const el = e.target;
+                requestAnimationFrame(() => { el.style.width = el.dataset.target + '%'; });
+                obs.unobserve(el);
+            }
+        });
+    }, { threshold: 0.35 });
+    bars.forEach(b => io.observe(b));
+})();
+
+/* =========================================================
+   SCROLL REVEAL
+   ========================================================= */
+(function reveal() {
+    const els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+        els.forEach(e => e.classList.add('in'));
+        return;
+    }
+    const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in');
+                obs.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(e => io.observe(e));
+})();
+</script>
+</body>
+</html>
